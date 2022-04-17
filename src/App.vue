@@ -1,5 +1,6 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
+  <p> Test: {{dotenv_test()}} </p>
   <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 
@@ -10,7 +11,12 @@ export default {
   name: 'App',
   components: {
     HelloWorld
-  }
+  },
+  methods: {
+    dotenv_test: function () {
+      console.log(process.env.VUE_APP_SOMEKEY)
+    }
+  },
 }
 </script>
 
