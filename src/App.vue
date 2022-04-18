@@ -1,6 +1,6 @@
 <template>
   
-  <p> Test: {{dotenv_test()}} </p>
+  <p> Testing! </p>
   <div id="app">
     <a href="https://github.com/pan-bellias/Reference-Letters-Client.git">
       <img style="position: absolute; top: 0; right: 0; border: 0;"
@@ -27,6 +27,10 @@
               <a v-bind:href="signup">Sign Up</a>
             </p>
           </div>
+        </div>
+        <div id="nav">
+          <router-link to="/">HomePage</router-link> |
+          <router-link to="/rl_requests">ReferenceLetterRequests</router-link>
         </div>
         <router-view/>
         <HomePage msg="Welcome to Reference-Letters App"/>
@@ -134,6 +138,12 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+#nav {
+  font-size: 1.25rem;
+  margin: 2rem;
+}
+
 h1, h2 {
   font-weight: normal;
 }
@@ -149,3 +159,4 @@ a {
   color: #42b983;
 }
 </style>
+<!-- source: https://blog.logrocket.com/dynamic-routing-using-vue-router/ -->
