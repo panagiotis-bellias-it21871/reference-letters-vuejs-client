@@ -130,3 +130,11 @@ is defined to start so as to have a web server in front of vuejs container and t
 certificates for HTTPS environment. For the HTTPS part we will talk about [later](https://github.com/panagiotisbellias/e-movies-app#in-docker-environment).
 
 * [More Info Here](https://github.com/pan-bellias/ansible-reference-letter-project#ansible--docker)
+
+# Docker Images - GitHub Container Registry
+```bash
+# build image
+docker build . -t ghcr.io/pan-bellias/ref-letters-client:latest
+# push image
+docker push ghcr.io/pan-bellias/ref-letters-client:latest
+```
