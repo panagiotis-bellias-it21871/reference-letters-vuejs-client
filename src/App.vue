@@ -29,11 +29,13 @@
           </div>
         </div>
         <div id="nav">
-          <router-link to="/">HomePage</router-link> |
-          <router-link to="/rl_requests">ReferenceLetterRequests</router-link>
+          <a href="/"> HomePage </a> <!-- 
+          <router-link to="/">HomePage</router-link> --> |
+          <a href="/rl_requests"> ReferenceLetterRequests </a>
+          <!-- <router-link to="/rl_requests">ReferenceLetterRequests</router-link> -->
         </div>
         <router-view/>
-        <HomePage msg="Welcome to Reference-Letters App"/>
+        <!-- <HomePage msg="Welcome to Reference-Letters App"/> -->
       </div>
       <ul>
         <li>
@@ -75,12 +77,12 @@
 </template>
 
 <script>
-import HomePage from './components/HomePage.vue'
+//import HomePage from './components/HomePage.vue'
 
 export default {
   name: 'App',
   components: {
-    HomePage
+    // HomePage
   },
   data () {
     return {
