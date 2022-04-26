@@ -1,5 +1,14 @@
 version: '3'
 services:
+  minio:
+    image: minio/minio
+    ports:
+      - "9000::9000"
+    volumes:
+      - ./storage/minio:/data
+    environment:
+        MINIO_ACCESS_KEY: reference_letters_grading_devops
+        MINIO_SECRET_KEY: rgmg8bfBG2ZDvbQe
   # s3:
   #   image: minio/minio
   #   ports:
