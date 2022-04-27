@@ -13,6 +13,14 @@
 npm install
 ```
 
+## Download minio from source (issues here)
+```
+git clone https://github.com/minio/minio-js
+cd minio-js
+npm install
+npm install -g
+```
+
 ### Copy .env.example to .env and replace with your values
 ```
 cp .env.example .env

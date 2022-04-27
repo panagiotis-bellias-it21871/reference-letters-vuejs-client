@@ -1,6 +1,8 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createWebHistory, createRouter } from "vue-router"
 import HomePage from '../components/HomePage.vue'
+
+//import Vue from 'vue'
+//import VueRouter from 'vue-router'
 import ReferenceLettersRequests from '../components/ReferenceLettersRequests.vue'
 import NotFound from '../components/NotFound.vue'
 
@@ -24,6 +26,15 @@ const routes = [
   }
 ]
 
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+export default router
+
+
+/*
 // Create Vue Router Object
 // export 
 const router = VueRouter.createRouter({
@@ -33,13 +44,15 @@ const router = VueRouter.createRouter({
   routes,
 })
 
-// Vue.config.productionTip = false;
+*/
 
+// Vue.config.productionTip = false;
+/*
 const app = Vue.createApp({})
 app.use(router)
 
 app.mount('#app')
-
+*/
 /*
 new Vue({
   render: h => h(App),
