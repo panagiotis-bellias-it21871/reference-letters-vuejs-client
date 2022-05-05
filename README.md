@@ -110,14 +110,17 @@ ansible-vm, and 'ssh-docker-vm' to access docker-vm
 need to define in our projects during deployment, like below
 
 ```nano
-# ID                What is the value?
-<id>                <value>
+# ID                    What is the value?
+docker-push-secret      <value>
+docker-user
+docker-prefix-image-vue 
+etc.
 ```
 
 <a name="jobs"></a>
 #### Create Jobs
 * [Create Freestyle project for Ansible code](https://www.guru99.com/create-builds-jenkins-freestyle-project.html)
-* [More for Ansible]() <-- Link for Ansible Project is missing
+* [More for Ansible](https://github.com/pan-bellias/Ansible-Reference-Letter-Code.git)
 * [Create Pipeline project](https://www.jenkins.io/doc/pipeline/tour/hello-world/)
 * [Add Webhooks to both jobs - see until Step 9](https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project)
 
