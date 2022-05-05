@@ -15,6 +15,16 @@
 3. [Download minio from source](#minio-source) (required only for running locally the project)  
 4. [Deploy vuejs project to a VM (Virtual Machine)](#deployment)  
 4.1. [CI/CD tool configuration (Jenkins Server)](#jenkins)  
+4.1.1. [Step 1: Configure Shell](#conf_shell)  
+4.1.2. [Step 2: Add webhooks both to vuejs and ansible repositories](#webhooks)  
+4.1.3. [Step 3: Add the credentials needed](#credentials)  
+4.1.4. [Create Jobs](#jobs)  
+4.1.4.1. [Build stage](#build)  
+4.1.4.2. [Test stage](#test)  
+4.1.4.3. [Ansible Deployment](#j-ansible)  
+4.1.4.4. [Docker Deployment](#j-docker)  
+4.1.4.5. [Preparing k8s Deployment](#j-k8s-pre)  
+4.1.4.6. [Kubernetes Deployment](#j-k8s)  
 4.2. [Deployment with pure Ansible](#ansible)  
 4.3. [Deployment with Docker and docker-compose using Ansible](#docker)  
 ...
@@ -81,19 +91,22 @@ sudo systemctl status jenkins
 netstat -anlp | grep 8080 # needs package net-tools
 ```
 
+<a name="conf_shell"></a>
 #### Step 1: Configure Shell
 Go to Dashboard / Manage Jenkins / Configure System / Shell / Shell Executable and type '/bin/bash'
 
-#### Step 2: Add webhooks both to django and ansible repositories
+<a name="webhooks"></a>
+#### Step 2: Add webhooks both to fastapi and ansible repositories
 [Dublicate](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/duplicating-a-repository) repositories for easier configuration.
 
 * [Add Webhooks - see until Step 4](https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project)
 
+<a name="credentials"></a>
 #### Step 3: Add the credentials needed
 
-* [Add SSH keys & SSH Agent plugin](https://plugins.jenkins.io/ssh-agent/) with id 'ssh-ansible-vm' to access 
+* [Add SSH keys & SSH Agent plugin](https://plugins.jenkins.io/ssh-agent/) with id 'ssh-ansible-vm' to access
 ansible-vm, and 'ssh-docker-vm' to access docker-vm
-* [Add Secret Texts](https://www.jenkins.io/doc/book/using/using-credentials/) for every environmental variable we 
+* [Add Secret Texts](https://www.jenkins.io/doc/book/using/using-credentials/) for every environmental variable we
 need to define in our projects during deployment, like below
 
 ```nano
@@ -101,33 +114,42 @@ need to define in our projects during deployment, like below
 <id>                <value>
 ```
 
+<a name="jobs"></a>
 #### Create Jobs
 * [Create Freestyle project for Ansible code](https://www.guru99.com/create-builds-jenkins-freestyle-project.html)
-* [More for Ansible]()
+* [More for Ansible]() <-- Link for Ansible Project is missing
 * [Create Pipeline project](https://www.jenkins.io/doc/pipeline/tour/hello-world/)
 * [Add Webhooks to both jobs - see until Step 9](https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project)
 
 In the vuejs job the pipeline will be the [Jenkinsfile](Jenkinsfile)
 
+<a name="build"></a>
 ##### Build stage
 Takes the code from the git repository
+
+<a name="test"></a>
 ##### Test stage
 Installs the requirements, executes the tests so the application can be tested before goes on production.
 NOTE: connect to your jenkins vm and do the below line so the test stage can run
 ```bash
 <username>@<vm-name>:~$ sudo apt-get install libpcap-dev libpq-dev
 ```
+
+<a name="j-ansible"></a>
 ##### Ansible Deployment
 Ansible connects to the ansible-vm through ssh agent and the ssh key we define there and runs a playbook for 
 postgres database configuration and vuejs site configuration passing the sensitive parameters from secret texts.
 
+<a name="j-docker"></a>
 ##### Docker Deployment
 Ansible connects to the docker-vm through ssh and runs a playbook that it will define the sensitive parameters and 
 will use docker-compose module to do docker-compose up the containers according to [docker-compose.yml](docker-compose.yml)
 
+<a name="j-k8s-pre"></a>
 ##### Preparing k8s Deployment
 Here, to deploy our app we need a docker image updated. So we build the image according to [Dockerfile](Dockerfile), we are logging in Dockerhub and push the image there to be public available.
 
+<a name="j-k8s"></a>
 ##### Kubernetes Deployment
 After we have [configure connection](https://github.com/pan-bellias/Reference-Letters-Client#connect-kubernetes-cluster-with-local-pc-orand-jenkins-server) 
 between jenkins user and our k8s cluster, we update secrets and configmaps using also some Ansible to populate ~/.
