@@ -188,3 +188,4 @@ docker build . -t ghcr.io/pan-bellias/ref-letters-client:latest
 # push image
 docker push ghcr.io/pan-bellias/ref-letters-client:latest
 ```
+Panagiotis Bellias
