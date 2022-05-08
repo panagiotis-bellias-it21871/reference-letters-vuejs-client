@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'ReferenceLettersRequests',
+  name: 'SeeRlRequests',
   components: {
   },
   data () {
