@@ -19,7 +19,7 @@ export default {
     }
   },
   methods: {
-    submitFile: function (res) {
+    submitFile: function (/*res*/) { /*
       var Minio = require('minio')
       var minioClient = new Minio.Client({
         endPoint: process.env.VUE_APP_MINIO_ENDPOINT,
@@ -75,7 +75,7 @@ export default {
           if (err) throw err
 
           console.log('Bucket policy set')
-      });
+      });*/
     },
   }
 }

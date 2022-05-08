@@ -1,5 +1,4 @@
 <template>
-  <p> Testing! </p>
   <div id="app">
     <a href="https://github.com/pan-bellias/Reference-Letters-Client.git">
       <img style="position: absolute; top: 0; right: 0; border: 0;"

@@ -20,7 +20,7 @@ const routes = [
     component: ReferenceLettersRequests
   },
   {
-    path: '*',
+    path: '/:catchAll(.*)',
     name: 'NotFound',
     component: NotFound
   }
