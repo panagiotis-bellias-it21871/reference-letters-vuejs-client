@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Reference Letter Logo" src="../assets/logo.jpg">
-    <AddReferenceLetterRequest />
+    <AddReferenceLetterRequest v-on:add-reference-letter-request="addRlRequest"/>
     <ReferenceLetterRequestList v-bind:todos="todos"/> <!-- v-bind:rl_requests="rl_requests" -->
   </div>
 </template>
@@ -25,6 +25,18 @@ export default {
       todos: [],
       // rl_requests: [],
       errors: []
+    }
+  },
+  methods(){
+    addRlRequest(newRlRequest) {
+      const { title, completed } = newRlRequest
+      axios
+      .post("https://jsonplaceholder.typicode.com/todos", {
+        title,
+        completed
+      })
+      .then(res => (this.todos = [...this.todos, res.data]))
+      .catch(err => console.log(err))
     }
   },
   created(){

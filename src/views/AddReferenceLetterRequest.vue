@@ -7,14 +7,14 @@
         </div>
         <div class="card bg-dark mb-3" v-if="formDiv">
             <div class="card-body">
-                <form>
+                <form @submit.prevent="addRlRequest">
                     <div class="form-group">
                       <label>Reference Letter Request Title</label>
-                      <input type="text" name="title" id="" class="form-control" placeholder="Enter request title">
+                      <input v-model="title" type="text" name="title" id="" class="form-control" placeholder="Enter request title">
                     </div>
                     <div class="form-group">
                       <label>Reference Letter Request Details</label>
-                      <textarea name="body" class="form-control" placeholder="Enter request details"></textarea>
+                      <input v-model="completedAns" type="text" name="completedAns" class="form-control" placeholder="Enter if completed">
                     </div>
                     <div class="row">
                         <div class="col-6 mx-auto">
@@ -32,12 +32,29 @@ export default {
     name: "AddReferenceLetterRequest",
     data(){
         return {
-            formDiv: false
+            formDiv: false,
+            title: "",
+            completedAns: "",
+            completed: false
         }
     },
     methods: {
         formShow(){
             this.formDiv = true;
+        },
+        addRlRequest(){
+            if(this.completedAns == "true"){
+                this.completed = true
+            }
+
+            const newRlRequest = {
+                title: this.title,
+                completed: this.completed
+            }
+
+            // Send up to parent
+            this.$emit("add-reference-letter-request", newRlRequest)
+            (this.title = ""), (this.completed = false)
         }
     }
 }
