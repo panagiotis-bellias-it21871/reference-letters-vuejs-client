@@ -7,22 +7,22 @@
         </div>
         <div class="card bg-dark mb-3">
             <div class="card-body">
-                <h3>{{todo.title}}</h3>
-                <p>{{todo.completed}}</p>
+                <h3>{{rl_request.title}}</h3>
+                <p>{{rl_request.completed}}</p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"
 
 export default {
     name: "ReferenceLetterRequestDetails",
     data() {
         return {
             id: this.$route.params.id,
-            todo: []
+            rl_request: []
         }
     },
     created(){
@@ -30,8 +30,7 @@ export default {
             .get(`https://jsonplaceholder.typicode.com/todos/${this.id}`)
             //process.env.VUE_APP_BACKEND_URL
             .then(res => {
-                this.todo = res.data
-                //this.rl_request = res.data
+                this.rl_request = res.data
             })
             .catch(e => {
                 this.errors.push(e)

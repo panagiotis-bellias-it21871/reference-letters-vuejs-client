@@ -51,7 +51,6 @@ export default {
                 title: this.title,
                 completed: this.completed
             }
-
             // Send up to parent
             this.$emit("add-reference-letter-request", newRlRequest)
             (this.title = ""), (this.completed = false)

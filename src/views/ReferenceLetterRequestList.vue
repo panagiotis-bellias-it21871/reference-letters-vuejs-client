@@ -1,10 +1,9 @@
 <template>
     <div class="reference-letter-request-list">
-        <div class="card mb-3" v-for="todo of todos" :key="todo.id"> <!-- v-for="rl_request of rl_requests"
-        :key="rl_request.id" -->
+        <div class="card mb-3" v-for="rl_request of rl_requests" :key="rl_request.id">
             <div class="card-body">
-                <h3><router-link :to="`/reference-letter-request-details/${todo.id}`">{{todo.title}}</router-link></h3>
-                <p>{{todo.completed}}</p>
+                <h3><router-link :to="`/reference-letter-request-details/${rl_request.id}`">{{rl_request.title}}</router-link></h3>
+                <p>{{rl_request.completed}}</p>
             </div>
         </div>
         <div class="card mb-3" v-if="errors && errors.length">
@@ -18,7 +17,7 @@
 <script>
 export default {
     name: "ReferenceLetterRequestList",
-    props: ["todos"] // rl_requests
+    props: ["rl_requests"]
 }
 </script>
 
