@@ -8,11 +8,11 @@
 
 <script>
 
-import axios from "axios";
+import axios from "axios"
 
 // @ is an alias to /src
-import AddReferenceLetterRequest from "@/views/AddReferenceLetterRequest.vue";
-import ReferenceLetterRequestList from "@/views/ReferenceLetterRequestList.vue";
+import AddReferenceLetterRequest from "@/views/AddReferenceLetterRequest.vue"
+import ReferenceLetterRequestList from "@/views/ReferenceLetterRequestList.vue"
 
 export default {
   name: 'HomeView',
@@ -24,7 +24,7 @@ export default {
     return {
       rl_requests: [],
       errors: []
-    };
+    }
   },
   methods(){
     addRlRequest(newRlRequest) {
@@ -36,7 +36,7 @@ export default {
       })
       .then(res => (this.rl_requests = [...this.rl_requests, res.data]))
       .catch(err => console.log(err));
-    };
+    }
   },
   created(){
     axios.get("https://jsonplaceholder.typicode.com/todos?_limit=5")
@@ -46,7 +46,7 @@ export default {
     })
     .catch(e => {
       this.errors.push(e);
-    });
-  };
-};
+    })
+  }
+}
 </script>
