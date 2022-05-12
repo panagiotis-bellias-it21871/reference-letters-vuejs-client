@@ -53,7 +53,8 @@ export default {
             }
             // Send up to parent
             this.$emit("add-reference-letter-request", newRlRequest)
-            (this.title = ""), (this.completed = false)
+            this.title = ""
+            this.completed = false
         }
     }
 }

@@ -27,8 +27,7 @@ export default {
     },
     created(){
         axios
-            .get(`https://jsonplaceholder.typicode.com/todos/${this.id}`)
-            //process.env.VUE_APP_BACKEND_URL
+            .get(`${process.env.VUE_APP_BACKEND_URL}/todos/${this.id}`)
             .then(res => {
                 this.rl_request = res.data
             })
