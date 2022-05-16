@@ -1,10 +1,8 @@
 <template>
   <div class="home">
     <img alt="Reference Letter Logo" src="../assets/logo.jpg">
-    <!--     <AddReferenceLetterRequest v-on:add-reference-letter-request="addRlRequest"/> -->
-    <AddReferenceLetterRequest />
-    <!--     <ReferenceLetterRequestList v-on:del-rl-request="deletePost" v-bind:rl_requests="rl_requests"/> -->
-    <ReferenceLetterRequestList v-bind:rl_requests="rl_requests"/>
+    <AddReferenceLetterRequest v-on:add-reference-letter-request="addRlRequest"/>
+    <ReferenceLetterRequestList v-on:del-rl-request="deletePost" v-bind:rl_requests="rl_requests"/>
   </div>
 </template>
 
@@ -28,7 +26,7 @@ export default {
       errors: []
     }
   },
-  methods(){ /*
+  methods : {
     addRlRequest(newRlRequest) { 
       const { title, completed } = newRlRequest;
       axios
@@ -44,11 +42,12 @@ export default {
         .delete(`${process.env.VUE_APP_BACKEND_URL}/todos/${id}`)
         .then(res => {
           this.rl_requests = this.rl_requests.filter(rl_request => rl_request.id !== id)
+          console.log(res);
         })
         .catch(err => {
           console.log(err);
         })
-    } */
+    }
   },
   created(){
     axios.get(`${process.env.VUE_APP_BACKEND_URL}/todos?_limit=5`)
