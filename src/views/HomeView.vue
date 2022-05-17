@@ -9,6 +9,7 @@
 <script>
 
 import axios from "axios"
+let headers = {'Access-Control-Allow-Origin' : '*'}
 
 // @ is an alias to /src
 import AddReferenceLetterRequest from "@/views/AddReferenceLetterRequest.vue"
@@ -39,7 +40,7 @@ export default {
     },
     deleteRlRequest(id) {
       axios
-        .delete(`${process.env.VUE_APP_BACKEND_URL}/todos/${id}`)
+        .delete(`${process.env.VUE_APP_BACKEND_URL}/todos/${id}`, headers)
         .then(res => {
           this.rl_requests = this.rl_requests.filter(rl_request => rl_request.id !== id)
           console.log(res);
@@ -49,14 +50,26 @@ export default {
         })
     }
   },
-  created(){
-    axios.get(`${process.env.VUE_APP_BACKEND_URL}/todos?_limit=5`)
+  created(){ /*
+    axios.get(`${process.env.VUE_APP_BACKEND_URL}/todos?_limit=5`, headers)
     .then(res => {
       this.rl_requests = res.data;
     })
     .catch(e => {
       this.errors.push(e);
+    }) */
+
+    axios.get(`${process.env.VUE_APP_BACKEND_URL}/rl_requests`, {
+      headers: headers
     })
+    .then(res => {
+      console.log(res);
+      alert("Ping " + res);
+    })
+    .catch(e => {
+      this.errors.push(e);
+    })
+
   }
 }
 </script>
