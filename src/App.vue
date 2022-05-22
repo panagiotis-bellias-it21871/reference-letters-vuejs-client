@@ -4,7 +4,7 @@
     <div class="container">
       <router-view/>
       <br>
-      <a href="https://www.youtube.com/watch?v=-Pa3fUusLJ0&ab_channel=BasicsAdda">YouTube Tutorial</a>
+      <a data-cy="link" href="https://www.youtube.com/watch?v=-Pa3fUusLJ0&ab_channel=BasicsAdda">YouTube Tutorial</a>
     </div>
   </div>
 </template>
