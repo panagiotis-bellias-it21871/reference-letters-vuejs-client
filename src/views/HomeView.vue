@@ -24,14 +24,15 @@ export default {
   data(){
     return {
       rl_requests: [],
-      errors: []
+      errors: [],
+      backend: process.env.VUE_APP_BACKEND_URL
     }
   },
   methods : {
     addRlRequest(newRlRequest) { 
       const { title, completed } = newRlRequest;
       axios
-      .post(`${process.env.VUE_APP_BACKEND_URL}/todos`, {
+      .post(`${backend}/todos`, {
         title,
         completed
       })
@@ -40,7 +41,7 @@ export default {
     },
     deleteRlRequest(id) {
       axios
-        .delete(`${process.env.VUE_APP_BACKEND_URL}/todos/${id}`, headers)
+        .delete(`${backend}/todos/${id}`, headers)
         .then(res => {
           this.rl_requests = this.rl_requests.filter(rl_request => rl_request.id !== id)
           console.log(res);
@@ -59,7 +60,7 @@ export default {
       this.errors.push(e);
     }) */
 
-    axios.get(`${process.env.VUE_APP_BACKEND_URL}/rl_requests`, {
+    axios.get(`${backend}/rl_requests`, {
       headers: headers
     })
     .then(res => {
