@@ -32,7 +32,7 @@ export default {
     addRlRequest(newRlRequest) { 
       const { title, completed } = newRlRequest;
       axios
-      .post(`${backend}/todos`, {
+      .post(`${this.backend}/todos`, {
         title,
         completed
       })
@@ -41,7 +41,7 @@ export default {
     },
     deleteRlRequest(id) {
       axios
-        .delete(`${backend}/todos/${id}`, headers)
+        .delete(`${this.backend}/todos/${id}`, headers)
         .then(res => {
           this.rl_requests = this.rl_requests.filter(rl_request => rl_request.id !== id)
           console.log(res);
@@ -51,21 +51,22 @@ export default {
         })
     }
   },
-  created(){ /*
-    axios.get(`${process.env.VUE_APP_BACKEND_URL}/todos?_limit=5`, headers)
+  created(){
+    axios.get(`${this.backend}/rl_requests`, headers)
     .then(res => {
+      alert(res.data["name"])
       this.rl_requests = res.data;
     })
     .catch(e => {
       this.errors.push(e);
-    }) */
+    })
 
-    axios.get(`${backend}/rl_requests`, {
+    axios.get(`${this.backend}/ping`, {
       headers: headers
     })
     .then(res => {
       console.log(res);
-      alert("Ping " + res);
+      alert("Ping " + res.data["ping"]);
     })
     .catch(e => {
       this.errors.push(e);
