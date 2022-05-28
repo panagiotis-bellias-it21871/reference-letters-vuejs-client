@@ -13,7 +13,7 @@ module.exports = {
     'vue',
   ],
   preset: PUPPETEER_MODE ? 'jest-puppeteer' : defaults.preset,
-  setupTestFrameworkScriptFile: '<rootDir>/test/setup/after-env.js',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.js', '<rootDir>/test/setup/after-env.js'],
   snapshotSerializers: [
     'jest-serializer-vue',
   ],

@@ -11,7 +11,6 @@
 
 <script>
 import HeaderPage from '@/components/HeaderPage.vue'
-//import axios from 'axios'
 
 export default ({
   name: 'App',
@@ -26,15 +25,7 @@ export default ({
     return {
       user: "",
     }
-  }/*,
-  mounted : {
-    axios.get(${process.env.VUE_APP_KEYCLOAK_URL}, {
-        headers: {
-          Authorization: "Bearer " + this.keycloak.token
-        }
-      })
-      .then(response => (this.user = response));
-  }*/
+  }
 })
 </script>
 
