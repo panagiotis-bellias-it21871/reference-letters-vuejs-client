@@ -2,7 +2,7 @@
   <div class="home">
     <img alt="Reference Letter Logo" src="../assets/logo.jpg">
     <AddReferenceLetterRequest v-on:add-reference-letter-request="addRlRequest"/>
-    <ReferenceLetterRequestList v-on:del-rl-request="deletePost" v-bind:rl_requests="rl_requests"/>
+    <ReferenceLetterRequestList v-on:del-rl-request="deleteRlRequest" v-bind:rl_requests="rl_requests" v-bind:errors="errors"/>
   </div>
 </template>
 
@@ -30,18 +30,20 @@ export default {
   },
   methods : {
     addRlRequest(newRlRequest) { 
-      const { title, completed } = newRlRequest;
+      const { name, is_approved, is_declined, is_pending } = newRlRequest;
       axios
-      .post(`${this.backend}/todos`, {
-        title,
-        completed
+      .post(`${this.backend}/rl_requests`, {
+        name,
+        is_approved,
+        is_declined,
+        is_pending,
       })
       .then(res => (this.rl_requests = [...this.rl_requests, res.data]))
       .catch(err => console.log(err));
     },
     deleteRlRequest(id) {
       axios
-        .delete(`${this.backend}/todos/${id}`, headers)
+        .delete(`${this.backend}/rl_requests/${id}`, headers)
         .then(res => {
           this.rl_requests = this.rl_requests.filter(rl_request => rl_request.id !== id)
           console.log(res);
@@ -54,19 +56,7 @@ export default {
   created(){
     axios.get(`${this.backend}/rl_requests`, headers)
     .then(res => {
-      alert(res.data["name"])
       this.rl_requests = res.data;
-    })
-    .catch(e => {
-      this.errors.push(e);
-    })
-
-    axios.get(`${this.backend}/ping`, {
-      headers: headers
-    })
-    .then(res => {
-      console.log(res);
-      alert("Ping " + res.data["ping"]);
     })
     .catch(e => {
       this.errors.push(e);
