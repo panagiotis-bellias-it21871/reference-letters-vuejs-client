@@ -189,3 +189,4 @@ docker build . -t ghcr.io/pan-bellias/ref-letters-client:latest
 docker push ghcr.io/pan-bellias/ref-letters-client:latest
 ```
 Panagiotis Bellias
+submodule test
