@@ -9,7 +9,7 @@
             <div class="card-body">
                 <form @submit.prevent="addRlRequest">
                     <div class="form-group">
-                      <label>Reference Letter Request Title</label>
+                      <label>Choose Teacher</label>
                       <input v-model="title" type="text" name="title" id="" class="form-control" placeholder="Enter request title">
                     </div>
                     <div class="form-group">

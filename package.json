@@ -16,7 +16,8 @@
     "cypress": "^9.5.4",
     "router-link": "0.0.4",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "vue-simple-search-dropdown": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
