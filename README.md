@@ -22,113 +22,38 @@ A front end web application about reference letter handling in the context of DI
 npm install
 ```
 
-## Copy .env.example to .env and replace with your values
+### Copy .env.example to .env and replace with your values
 ```
 cp .env.example .env
 ```
 
-## Compiles and hot-reloads for development
+### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
 
-## Compiles and minifies for production
+### Compiles and minifies for production
 ```
 npm run build
 ```
 
-## Lints and fixes files
+### Lints and fixes files
 ```
 npm run lint
 ```
 
-## Customize configuration
+### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 [See what you have done](http://127.0.0.1:8000/)
 
 <a name="deployment"></a>
 ## Deploy vuejs project to a VM (Virtual Machine)
-
-We are going to need 4 VMs. One for the jenkins server and one for each execution environment (ansible, docker and 
-kubernetes)
-
-* [Create VM in Azure Portal](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal)
-* [SSH Access to VMs](https://help.skytap.com/connect-to-a-linux-vm-with-ssh.html)
-* [SSH Automation](https://linuxize.com/post/using-the-ssh-config-file/)
-* [Reserve Static IP in Azure](https://azure.microsoft.com/en-au/resources/videos/azure-friday-how-to-reserve-a-public-ip-range-in-azure-using-public-ip-prefix/)
+For deployment see [here](https://github.com/panagiotis-bellias-it21871/reference-letters-system#deploy-fastapi-and-vuejs-projects-to-a-vm-virtual-machine) 
 
 <a name="jenkins"></a>
 ### CI/CD tool configuration (Jenkins Server)
-
-* [Install Jenkins](https://www.jenkins.io/doc/book/installing/linux/)
-
-Make sure service is running
-```bash
-sudo systemctl status jenkins
-netstat -anlp | grep 8080 # needs package net-tools
-```
-
-<a name="conf_shell"></a>
-#### Step 1: Configure Shell
-Go to Dashboard / Manage Jenkins / Configure System / Shell / Shell Executable and type '/bin/bash'
-
-<a name="webhooks"></a>
-#### Step 2: Add webhooks both to fastapi and ansible repositories
-[Dublicate](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/duplicating-a-repository) repositories for easier configuration.
-
-* [Add Webhooks - see until Step 4](https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project)
-
-<a name="credentials"></a>
-#### Step 3: Add the credentials needed
-
-* [Add SSH keys & SSH Agent plugin](https://plugins.jenkins.io/ssh-agent/) with id 'ssh-ansible-vm' to access
-ansible-vm, and 'ssh-docker-vm' to access docker-vm
-* [Add Secret Texts](https://www.jenkins.io/doc/book/using/using-credentials/) for every environmental variable we
-need to define in our projects during deployment, like below
-
-```nano
-# ID                    What is the value?
-docker-push-secret      <value>
-docker-user
-docker-prefix-image-vue 
-etc.
-```
-
-<a name="jobs"></a>
-#### Create Jobs
-* [Create Freestyle project for Ansible code](https://www.guru99.com/create-builds-jenkins-freestyle-project.html)
-* [More for Ansible](https://github.com/pan-bellias/Ansible-Reference-Letter-Code.git)
-* [Create Pipeline project](https://www.jenkins.io/doc/pipeline/tour/hello-world/)
-* [Add Webhooks to both jobs - see until Step 9](https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project)
-
-In the vuejs job the pipeline will be the [Jenkinsfile](Jenkinsfile)
-
-<a name="build"></a>
-##### Build stage
-Takes the code from the git repository
-
-<a name="test"></a>
-##### Test stage
-Installs the requirements, executes the tests so the application can be tested before goes on production.
-NOTE: connect to your jenkins vm and do the below line so the test stage can run
-```bash
-<username>@<vm-name>:~$ sudo apt-get install libpcap-dev libpq-dev
-```
-
-<a name="j-ansible"></a>
-##### Ansible Deployment
-Ansible connects to the ansible-vm through ssh agent and the ssh key we define there and runs a playbook for 
-postgres database configuration and vuejs site configuration passing the sensitive parameters from secret texts.
-
-<a name="j-docker"></a>
-##### Docker Deployment
-Ansible connects to the docker-vm through ssh and runs a playbook that it will define the sensitive parameters and 
-will use docker-compose module to do docker-compose up the containers according to [docker-compose.yml](docker-compose.yml)
-
-<a name="j-k8s-pre"></a>
-##### Preparing k8s Deployment
-Here, to deploy our app we need a docker image updated. So we build the image according to [Dockerfile](Dockerfile), we are logging in Dockerhub and push the image there to be public available.
+For jenkins configuration see [here](https://github.com/panagiotis-bellias-it21871/reference-letters-system#cicd-tool-configuration-jenkins-server) 
 
 <a name="j-k8s"></a>
 ##### Kubernetes Deployment
