@@ -14,7 +14,6 @@ A front end web application about reference letter handling in the context of DI
 3. [Deploy vuejs project to a VM (Virtual Machine)](#deployment)  
 3.1. [CI/CD tool configuration (Jenkins Server)](#jenkins)  
 3.2. [Deployment with Docker and docker-compose using Ansible](#docker) 
-...
 
 <a name="setup"></a>
 ## Project setup
