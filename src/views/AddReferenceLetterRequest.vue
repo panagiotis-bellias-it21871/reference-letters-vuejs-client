@@ -44,12 +44,14 @@ export default {
         },
         addRlRequest(){
             if(this.completedAns == "true"){
-                this.completed = true
+                this.approved = true
             }
 
             const newRlRequest = {
                 title: this.title,
-                completed: this.completed
+                is_approved: this.approved,
+                is_declined: false,
+                is_pending: false,
             }
             // Send up to parent
             this.$emit("add-reference-letter-request", newRlRequest)
