@@ -17,7 +17,8 @@
     "router-link": "0.0.4",
     "vue": "^3.2.13",
     "vue-router": "^4.0.13",
-    "vue-simple-search-dropdown": "^1.0.1"
+    "vue-simple-search-dropdown": "^1.0.1",
+    "vue-template-compiler": "^2.6.14"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -32,7 +33,8 @@
     "babel-jest": "^27.0.6",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
-    "jest": "^27.0.5"
+    "jest": "^27.0.5",
+    "vue-jest": "^3.0.7"
   },
   "eslintConfig": {
     "root": true,
