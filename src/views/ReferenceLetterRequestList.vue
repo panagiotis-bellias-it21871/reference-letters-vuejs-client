@@ -2,10 +2,8 @@
     <div class="reference-letter-request-list">
         <div class="card mb-3" v-for="rl_request of rl_requests" :key="rl_request.id" @dblclick="$emit('del-rl-request', rl_request.id)">
             <div class="card-body">
-                <h3><router-link :to="`/reference-letter-request-details/${rl_request['id']}`">{{rl_request['name']}}</router-link></h3>
-                <p>Pending : {{rl_request['is_pending']}}</p>
-                <p>Approved : {{rl_request['is_approved']}}</p>
-                <p>Declined : {{rl_request['is_declined']}}</p>
+                <h3><router-link :to="`/reference-letter-request-details/${rl_request['id']}`">{{rl_request['id']}}. {{rl_request['carrier_name']}}</router-link></h3>
+                <p>Status: {{rl_request['status']}}</p>
             </div>
         </div>
         <div class="card mb-3" v-if="errors && errors.length">

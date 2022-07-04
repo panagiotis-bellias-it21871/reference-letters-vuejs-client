@@ -7,10 +7,12 @@
         </div>
         <div class="card bg-dark mb-3">
             <div class="card-body">
-                <h3>{{rl_request['name']}}</h3>
-                <p>Pending : {{rl_request['is_pending']}}</p>
-                <p>Approved : {{rl_request['is_approved']}}</p>
-                <p>Declined : {{rl_request['is_declined']}}</p>
+                <h3>{{rl_request['carrier_name']}}</h3>
+                <p>From: {{student['name']}}</p>
+                <p>To: {{teacher['name']}}</p>
+                <p>Status : {{rl_request['status']}}</p>
+                <b>Text</b>
+                <p>{{rl_request['text']}}</p>
             </div>
         </div>
     </div>
@@ -25,7 +27,9 @@ export default {
         return {
             id: this.$route.params.id,
             errors: [],
-            rl_request: []
+            rl_request: [],
+            student: [],
+            teacher: []
         }
     },
     created(){
@@ -33,6 +37,22 @@ export default {
             .get(`${process.env.VUE_APP_BACKEND_URL}/rl_requests/${this.id}`)
             .then(res => {
                 this.rl_request = res.data
+            })
+            .catch(e => {
+                this.errors.push(e)
+            })
+        axios
+            .get(`${process.env.VUE_APP_BACKEND_URL}/students/${this.id}`)
+            .then(res => {
+                this.student = res.data
+            })
+            .catch(e => {
+                this.errors.push(e)
+            })
+        axios
+            .get(`${process.env.VUE_APP_BACKEND_URL}/teachers/${this.id}`)
+            .then(res => {
+                this.teacher = res.data
             })
             .catch(e => {
                 this.errors.push(e)

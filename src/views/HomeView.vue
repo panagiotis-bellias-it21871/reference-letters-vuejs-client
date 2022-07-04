@@ -25,7 +25,7 @@ export default {
     return {
       rl_requests: [],
       errors: [],
-      backend: process.env.VUE_APP_BACKEND_URL
+      backend: process.env.VUE_APP_BACKEND_URL,
     }
   },
   methods : {
