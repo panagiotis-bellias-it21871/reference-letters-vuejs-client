@@ -54,7 +54,7 @@ export default {
     }
   },
   created(){
-    axios.get(`${this.backend}/rl_requests`, headers)
+    axios.get(`${this.backend}/api/rl_requests`, headers)
     .then(res => {
       this.rl_requests = res.data;
     })
