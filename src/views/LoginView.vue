@@ -1,8 +1,60 @@
 <template>
   <div class="login">
-    <h1>Under construction</h1>
+    <div class="card bg-dark mb-3">
+            <div class="card-body">
+                <form @submit.prevent="login">
+                    <div class="form-group">
+                      <label>Username</label>
+                      <input v-model="username" type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                      <label>Password</label>
+                      <input v-model="password" type="password" name="password" class="form-control" placeholder="Enter your password">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mx-auto">
+                            <button class="btn btn-block btn-success">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
   </div>
 </template>
+
+<script>
+import axios from "axios"
+
+export default {
+    name: "LoginView",
+    data(){
+        return {
+            username: "",
+            password: "",
+            backend: process.env.VUE_APP_BACKEND_URL,
+        }
+    },
+    methods : {
+        login(){
+          const loginPayload = {
+            username: this.username,
+            password: this.password,
+          }
+          const {username, password} = loginPayload;
+
+          axios
+          .post(`${this.backend}/login`, {
+            username,
+            password,
+          })
+          .then(res => (this.username = [...this.username, res.data]))
+          .catch(err => console.log(err));
+          this.username = ""
+          this.password = ""
+        }
+    }
+}
+</script>
 
 <style scoped>
 h1 {
