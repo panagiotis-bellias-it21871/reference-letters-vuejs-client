@@ -12,7 +12,7 @@ module.exports = {
     'json',
     'vue',
   ],
-  preset: PUPPETEER_MODE ? 'jest-puppeteer' : defaults.preset,
+  preset: '@vue/cli-plugin-unit-jest',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.js', '<rootDir>/test/setup/after-env.js'],
   snapshotSerializers: [
     'jest-serializer-vue',
