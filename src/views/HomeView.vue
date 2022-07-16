@@ -1,8 +1,10 @@
 <template>
   <div class="home">
     <img alt="Reference Letter Logo" src="../assets/logo.jpg">
-    <AddReferenceLetterRequest v-on:add-reference-letter-request="addRlRequest"/>
-    <ReferenceLetterRequestList v-on:del-rl-request="deleteRlRequest" v-bind:rl_requests="rl_requests" v-bind:errors="errors"/>
+    <div v-if="true">
+      <AddReferenceLetterRequest v-on:add-reference-letter-request="addRlRequest"/>
+      <ReferenceLetterRequestList v-on:del-rl-request="deleteRlRequest" v-bind:rl_requests="rl_requests" v-bind:errors="errors"/>
+    </div>
   </div>
 </template>
 
@@ -28,7 +30,7 @@ export default {
       backend: process.env.VUE_APP_BACKEND_URL,
     }
   },
-  methods : {
+  methods : { /* Fix code below */
     addRlRequest(newRlRequest) { 
       const { name, is_approved, is_declined, is_pending } = newRlRequest;
       axios
@@ -54,7 +56,7 @@ export default {
     }
   },
   created(){
-    axios.get(`${this.backend}/api/rl_requests`, headers)
+    axios.get(`${this.backend}/rl_requests`, headers)
     .then(res => {
       this.rl_requests = res.data;
     })

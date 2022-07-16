@@ -1,24 +1,27 @@
 <template>
   <div class="login">
     <div class="card bg-dark mb-3">
-            <div class="card-body">
-                <form @submit.prevent="login">
-                    <div class="form-group">
-                      <label>Username</label>
-                      <input v-model="username" type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
-                    </div>
-                    <div class="form-group">
-                      <label>Password</label>
-                      <input v-model="password" type="password" name="password" class="form-control" placeholder="Enter your password">
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mx-auto">
-                            <button class="btn btn-block btn-success">Login</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+      <div class="card-body">
+          <form @submit.prevent="login">
+              <div class="form-group">
+                <label>Username</label>
+                <input v-model="username" type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input v-model="password" type="password" name="password" class="form-control" placeholder="Enter your password" size="1">
+              </div>
+              <div class="row">
+                  <div class="col-6 mx-auto">
+                      <button class="btn btn-block btn-success">Login</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+  <div class="signup">
+    <h5>If you have not an account yet please click <a><router-link :to="`signup`"> here</router-link></a>. </h5>
   </div>
 </template>
 
@@ -61,5 +64,8 @@ h1 {
   color: #fff;
   padding: 0 15px;
   display: block;
+}
+h5 {
+  color: #fff;
 }
 </style>

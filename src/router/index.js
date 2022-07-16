@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
+import SignupView from '../views/SignupView.vue'
+import SignupStudentView from '../views/SignupStudentView.vue'
+import SignupTeacherView from '../views/SignupTeacherView.vue'
 import ReferenceLetterRequestDetails from '../views/ReferenceLetterRequestDetails.vue'
 
 const routes = [
@@ -19,6 +22,21 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignupView
+  },
+  {
+    path: '/signupstudent',
+    name: 'signupstudent',
+    component: SignupStudentView
+  },
+  {
+    path: '/signupteacher',
+    name: 'signupteacher',
+    component: SignupTeacherView
   },
   {
     path: '/reference-letter-request-details/:id',
