@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: vuejs
-          image: ghcr.io/pan-bellias/ref-letters-client
+          image: ghcr.io/panagiotis-bellias-it21871/ref-letters-vuejs-client
           ports:
             - containerPort: 80
           envFrom:

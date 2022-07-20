@@ -57,7 +57,7 @@ More about deployment with Docker see [here](https://github.com/panagiotis-belli
 #### Docker Images - GitHub Container Registry
 ```bash
 # build image
-docker build . -t ghcr.io/panagiotis-bellias-it21871/ref-letters-client:latest
+docker build . -t ghcr.io/panagiotis-bellias-it21871/ref-letters-vuejs-client:latest
 # push image
-docker push ghcr.io/panagiotis-bellias-it21871/ref-letters-client:latest
+docker push ghcr.io/panagiotis-bellias-it21871/ref-letters-vuejs-client:latest
 ``` 
