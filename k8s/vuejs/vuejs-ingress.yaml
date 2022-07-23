@@ -4,13 +4,13 @@ metadata:
   name: vuejs-ingress
 spec:
   rules:
-  - host: ""
+  - host: "devops2k8s.ddns.net"
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
-          service: 
-            name: vuejs-clip 
+          service:
+            name: vuejs-clip
             port:
               number: 80
