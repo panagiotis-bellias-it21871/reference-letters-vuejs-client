@@ -1,9 +1,9 @@
 <template>
     <div class="signup">
-      <button class="btn btn-block btn-success btn-stud" @click="$router.push('signupstudent')">Sign Up As Student</button>
-      <button class="btn btn-block btn-success btn-teac" @click="$router.push('signupteacher')">Sign Up As Teacher</button><br/>
+      <button class="btn btn-block btn-stud" @click="$router.push('signupstudent')">Sign Up As Student</button>
+      <button class="btn btn-block btn-teac" @click="$router.push('signupteacher')">Sign Up As Teacher</button><br/>
       <h5>If you have already an account click button below to login</h5>
-      <button class="btn btn-block btn-success btn-login" @click="$router.push('login')">Login</button>
+      <button class="btn btn-block btn-login" @click="$router.push('login')">Login</button>
     </div>
 </template>
 

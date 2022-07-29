@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
+import AdminView from '../views/AdminView.vue'
 import SignupLoginView from '../views/SignupLoginView.vue'
 import SignupStudentView from '../views/SignupStudentView.vue'
 import SignupTeacherView from '../views/SignupTeacherView.vue'
@@ -42,6 +43,15 @@ const routes = [
     path: '/reference-letter-request-details/:id',
     name: 'rl-request-details',
     component: ReferenceLetterRequestDetails
+  },
+  {
+    path: '/admin',
+    name: 'adminpanel',
+    component: AdminView
+    /*
+    beforeEnter: () => {
+      window.location.href = 'https://www.google.gr'
+    }*/
   }
 ]
 
