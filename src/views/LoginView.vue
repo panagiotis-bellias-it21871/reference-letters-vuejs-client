@@ -21,7 +21,7 @@
     </div>
   </div>
   <div class="signup">
-    <h5>If you have not an account yet please click <a><router-link :to="`signup`"> here</router-link></a>. </h5>
+    <h5>If you have not an account yet please click <a><router-link :to="` `"> here</router-link></a>. </h5>
   </div>
 </template>
 

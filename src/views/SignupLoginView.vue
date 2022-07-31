@@ -24,21 +24,5 @@ h1 {
 h5 {
   color: #fff;
 }
-.btn-stud {
-  color: #fff;
-  background-color: blue;
-  width: 220px;
-  
-}
-.btn-teac {
-  color: #fff;
-  background-color: rgb(148, 7, 61);
-  width: 220px;
-}
 
-.btn-login {
-  color: #fff;
-  background-color: rgb(128, 113, 119);
-  width: 220px;
-}
 </style>

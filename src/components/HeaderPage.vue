@@ -14,6 +14,12 @@
           <li class="nav-item">
             <router-link to="/about" class="nav-link">About</router-link>
           </li>
+            <!--
+          <v-if user>
+            <li class="nav-item">
+            <p class="pt-3">Welcome <strong>{{ user.username }}</strong>.</p>
+            </li>
+            </v-if>-->
           <li class="nav-item active">
             <router-link to="/login" class="nav-link">Login</router-link>
           </li>
@@ -33,7 +39,10 @@ export default {
   name: 'HeaderPage',
   data(){
     return {
-      siteTitle: "Reference Letters App"
+      siteTitle: "Reference Letters App",
+      user: {
+        "username": "bellias"
+      }
     }
   }
 }

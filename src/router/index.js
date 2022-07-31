@@ -2,7 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
+import LogoutView from '../views/LogoutView.vue'
 import AdminView from '../views/AdminView.vue'
+import AdminStudentView from '../views/AdminStudentView.vue'
+import AdminTeacherView from '../views/AdminTeacherView.vue'
+import AdminRefLettersView from '../views/AdminRefLettersView.vue'
 import SignupLoginView from '../views/SignupLoginView.vue'
 import SignupStudentView from '../views/SignupStudentView.vue'
 import SignupTeacherView from '../views/SignupTeacherView.vue'
@@ -23,6 +27,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: LogoutView
   },
   {
     path: '/',
@@ -52,6 +61,21 @@ const routes = [
     beforeEnter: () => {
       window.location.href = 'https://www.google.gr'
     }*/
+  },
+  {
+    path: '/admin/students',
+    name: 'adminstudentpanel',
+    component: AdminStudentView
+  },
+  {
+    path: '/admin/teachers',
+    name: 'adminteacherpanel',
+    component: AdminTeacherView
+  },
+  {
+    path: '/admin/rl_requests',
+    name: 'adminrefletterspanel',
+    component: AdminRefLettersView
   }
 ]
 

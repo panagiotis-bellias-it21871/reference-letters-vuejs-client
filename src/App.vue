@@ -46,4 +46,21 @@ body {
 .card-body a {
   color: #efbb35;
 }
+.btn-stud {
+  color: #fff;
+  background-color: blue;
+  width: 220px;
+  
+}
+.btn-teac {
+  color: #fff;
+  background-color: rgb(148, 7, 61);
+  width: 220px;
+}
+
+.btn-login {
+  color: #fff;
+  background-color: rgb(128, 113, 119);
+  width: 220px;
+}
 </style>
