@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <HeaderPage/>
+    <HeaderPage v-bind:user="user"/>
     <div class="container">
-      <router-view/>
+      <router-view v-bind:user="user"/>
       <br>
-      <a data-cy="link" href="https://www.youtube.com/watch?v=-Pa3fUusLJ0&ab_channel=BasicsAdda">YouTube Tutorial</a>
+      <a data-cy="link" href="https://www.youtube.com/watch?v=-Pa3fUusLJ0&ab_channel=BasicsAdda">VueJS Tutorial</a> / 
+      <a data-cy="link" href="https://www.hua.gr/index.php/en/">Harokopio University</a> /
+      <a data-cy="link" href="https://www.dit.hua.gr/index.php/en/">Department of Informatics and Telematics</a> 
+      <a data-cy="link" href="https://github.com/panagiotis-bellias-it21871/reference-letters-system.git">GitHub repository</a> /
+      <a data-cy="link" href="/about">Documentation</a>
     </div>
   </div>
 </template>
@@ -25,6 +29,9 @@ export default ({
     return {
       user: "",
     }
+  },
+  created() {
+    this.user=""
   }
 })
 </script>
@@ -36,6 +43,7 @@ body {
 }
 .container {
   max-width: 900px;
+  color: #e9d9b2;
 }
 .card {
   background: #1a1d24;

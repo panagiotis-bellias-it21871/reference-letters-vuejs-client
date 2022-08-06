@@ -14,9 +14,10 @@ import ReferenceLetterRequestDetails from '../views/ReferenceLetterRequestDetail
 
 const routes = [
   {
-    path: '/index',
+    path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    props: HomeView
   },
   {
     path: '/about',
@@ -34,7 +35,7 @@ const routes = [
     component: LogoutView
   },
   {
-    path: '/',
+    path: '/signup',
     name: 'signuplogin',
     component: SignupLoginView
   },
@@ -57,10 +58,6 @@ const routes = [
     path: '/admin',
     name: 'adminpanel',
     component: AdminView
-    /*
-    beforeEnter: () => {
-      window.location.href = 'https://www.google.gr'
-    }*/
   },
   {
     path: '/admin/students',

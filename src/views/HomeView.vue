@@ -1,10 +1,13 @@
 <template>
   <div class="home">
     <img alt="Reference Letter Logo" src="../assets/logo.jpg">
-    <div v-if="true">
+    <div v-if=user>
       <AddReferenceLetterRequest v-on:add-reference-letter-request="addRlRequest"/>
       <ReferenceLetterRequestList v-on:del-rl-request="deleteRlRequest" v-bind:rl_requests="rl_requests" v-bind:errors="errors"/>
     </div>
+    <div v-else><br/>
+      <SignupLoginView/>
+      <OwnerDetails/></div>
   </div>
 </template>
 
@@ -16,12 +19,17 @@ let headers = {'Access-Control-Allow-Origin' : '*'}
 // @ is an alias to /src
 import AddReferenceLetterRequest from "@/views/AddReferenceLetterRequest.vue"
 import ReferenceLetterRequestList from "@/views/ReferenceLetterRequestList.vue"
+import SignupLoginView from "./SignupLoginView.vue"
+import OwnerDetails from "./OwnerDetails.vue"
 
 export default {
   name: 'HomeView',
+  props: ["user"],
   components: {
     AddReferenceLetterRequest,
-    ReferenceLetterRequestList
+    ReferenceLetterRequestList,
+    SignupLoginView,
+    OwnerDetails
   },
   data(){
     return {

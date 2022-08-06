@@ -1,7 +1,8 @@
 <template>
     <div class="signup">
-      <button class="btn btn-block btn-stud" @click="$router.push('signupstudent')">Sign Up As Student</button>
-      <button class="btn btn-block btn-teac" @click="$router.push('signupteacher')">Sign Up As Teacher</button><br/>
+      <p class="lead">Select below the type of account you want to create</p>
+      <button class="btn btn-block btn-stud" @click="$router.push('signupstudent')">I am a student</button>
+      <button class="btn btn-block btn-teac" @click="$router.push('signupteacher')">I am a teacher</button><br/>
       <h5>If you have already an account click button below to login</h5>
       <button class="btn btn-block btn-login" @click="$router.push('login')">Login</button>
     </div>
@@ -16,6 +17,9 @@ export default {
 </script>
 
 <style scoped>
+.lead {
+  color: #fff;
+}
 h1 {
   color: #fff;
   padding: 0 15px;
