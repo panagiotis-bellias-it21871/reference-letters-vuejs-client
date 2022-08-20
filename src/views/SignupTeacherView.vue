@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-md-8 col-sm-10 col-12">
           <h2>Sign up as a teacher</h2>
-          <form @submit.prevent="login">
+          <form @submit.prevent="signupstudent">
               <div class="form-group">
                 <label>Username</label>
                 <input v-model="username" type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
@@ -18,7 +18,7 @@
                 <select v-model="university" name="university" id="university" class="form-control">
                   <option value="harokopio">Harokopio University of Athens</option>
                 </select>
-              </div> -->
+              </div>
               <div class="form-group">
                 <label>School / Department (Select from the list)</label>
                 <select v-model="school" name="school" id="school" class="form-control">
@@ -27,6 +27,10 @@
                   <option value="ddns">Nutrition and Dietetics</option>
                   <option value="dhee">Economics & Sustainable Development</option>
                 </select>
+              </div>  -->
+              <div class="form-group">
+                <label>Email Address</label>
+                <input v-model="email" type="email" name="email" id="email" class="form-control" placeholder="Enter your email address">
               </div>
               <div class="form-group">
                 <label>Tell us a few words for yourself!</label>
@@ -54,10 +58,53 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: "SignupTeacherView",
     data(){
+      return {
+        username: "",
+        fullname: "",
+        email: "",
+        description: "",
+        password: "",
+        password2: "",
+        backend: process.env.VUE_APP_BACKEND_URL,
+        auth_endpoint: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX
+      }
     },
+    methods: {
+      signupstudent() {
+        
+        if (this.password != this.password2) {
+          alert("Passwords don't match! Try again...")
+          return
+        } else {
+          console.log(
+            "Username: " + this.username + "\n"+
+            "Fullname: " + this.fullname + "\n"+
+            "Email: " + this.email + "\n"+
+            "Description: " + this.description + "\n"+
+            "Password: " + this.password.length + " digits\n"
+          )
+        }
+        
+        axios
+        .post(`${this.backend}/${this.auth_endpoint}/signup/teacher`, {
+          username: this.username,
+          password: this.password,
+          fullName: this.fullname,
+          email: this.email,
+          description: this.description
+        })
+        .then(res => {
+          alert("Your teacher profile has created successfully!"),
+          console.log(res) }
+        )
+        .catch(err => console.log(err));
+      }
+    }
 }
 </script>
 

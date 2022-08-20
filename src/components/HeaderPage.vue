@@ -18,13 +18,13 @@
       </div>
       <div>
         <div>
-          <p v-if="user" class="pt-3">Welcome <strong>{{ user }}</strong></p>
+          <p v-if="username" class="pt-3">Welcome <strong>{{ username }}</strong></p>
         </div>
       </div>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li v-if="user" class="nav-item active">
-            <router-link  to="/logout" class="btn btn-primary nav-link">Logout</router-link>
+          <li v-if="username" class="nav-item active">
+            <button v-on:click=logout() class="btn btn-primary nav-link">Logout</button>
           </li>
           <li v-else class="nav-item active">
           <router-link  to="/login" class="btn btn-primary nav-link">Login</router-link>
@@ -35,19 +35,27 @@
         <img style="position: absolute; top: 0; right: 0; border: 0;"
         src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
             alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-      <!--
-      <router-link to="/admin" class="btn btn-primary nav-link" >Admin Panel</router-link> -->
+      <router-link to="/admin" class="btn btn-primary nav-link" >Admin Panel</router-link>
     </div>
   </nav>
 </template>
 
 <script>
+import router from "../router"
+
 export default {
   name: 'HeaderPage',
-  props: ["user"],
+  props: ["username"],
   data(){
     return {
       siteTitle: "Reference Letters App",
+    }
+  },
+  methods : {
+    logout(){
+      alert("Logout!")
+      // send /logout POST
+      router.push("/")
     }
   }
 }

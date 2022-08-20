@@ -27,6 +27,7 @@
 
 <script>
 import axios from "axios"
+import router from "../router"
 
 export default {
     name: "LoginView",
@@ -35,6 +36,8 @@ export default {
             username: "",
             password: "",
             backend: process.env.VUE_APP_BACKEND_URL,
+            auth: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX,
+            signin: process.env.VUE_APP_AUTH_LOGIN_ENDPOINT
         }
     },
     methods : {
@@ -44,13 +47,18 @@ export default {
             password: this.password,
           }
           const {username, password} = loginPayload;
-
+          console.log(`${this.backend}/${this.auth}/${this.signin}`);
+          console.log(username);
+          console.log(password)
           axios
-          .post(`${this.backend}/login`, {
+          .post(`${this.backend}/${this.auth}/${this.signin}`, {
             username,
             password,
           })
-          .then(res => (this.username = [...this.username, res.data]))
+          .then(res => {(this.username = [...this.username, res.data])
+          console.log(res.data)
+          router.push("/")
+        })
           .catch(err => console.log(err));
           this.username = ""
           this.password = ""

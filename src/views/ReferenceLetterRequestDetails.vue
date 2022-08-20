@@ -33,10 +33,29 @@ export default {
         }
     },
     created(){
+        this.rl_request = {
+            "id": 1,
+            "carrier_name": "Quintessential SFT",
+            "student": {
+                "name": "P. Bellias"
+            },
+            "teacher": {
+                "name": "A. Tsadimas"
+            },
+            "status": "pending",
+            "text": "blah blah"
+        }
+        this.student = {
+            "name": "P. Bellias"
+        }
+        this.teacher = {
+            "name": "A. Tsadimas"
+        }
         axios
             .get(`${process.env.VUE_APP_BACKEND_URL}/rl_requests/${this.id}`)
             .then(res => {
                 this.rl_request = res.data
+                console.log(res.data)
             })
             .catch(e => {
                 this.errors.push(e)
