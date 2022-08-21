@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-md-8 col-sm-10 col-12">
           <h2>Sign up as a teacher</h2>
-          <form @submit.prevent="signupstudent">
+          <form @submit.prevent="signupteacher">
               <div class="form-group">
                 <label>Username</label>
                 <input v-model="username" type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
@@ -71,11 +71,11 @@ export default {
         password: "",
         password2: "",
         backend: process.env.VUE_APP_BACKEND_URL,
-        auth_endpoint: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX
+        base_endpoint: process.env.VUE_APP_BASE_ENDPOINT_PREFIX,
       }
     },
     methods: {
-      signupstudent() {
+      signupteacher() {
         
         if (this.password != this.password2) {
           alert("Passwords don't match! Try again...")
@@ -91,15 +91,15 @@ export default {
         }
         
         axios
-        .post(`${this.backend}/${this.auth_endpoint}/signup/teacher`, {
-          username: this.username,
-          password: this.password,
-          fullName: this.fullname,
+        .post(`${this.backend}/${this.base_endpoint}/teachers/`, {
+          //username: this.username,
+          //password: this.password,
+          name: this.fullname,
           email: this.email,
           description: this.description
         })
         .then(res => {
-          alert("Your teacher profile has created successfully!"),
+          alert("Only name, email and description added!"),
           console.log(res) }
         )
         .catch(err => console.log(err));

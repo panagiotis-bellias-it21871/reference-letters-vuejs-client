@@ -31,7 +31,7 @@ export default ({
     }
   },
   created() {
-    this.username = "anonymous"
+    this.username = ""
   }
 })
 </script>

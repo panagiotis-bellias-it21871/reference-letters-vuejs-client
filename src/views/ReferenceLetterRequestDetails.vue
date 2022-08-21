@@ -29,7 +29,10 @@ export default {
             errors: [],
             rl_request: [],
             student: [],
-            teacher: []
+            teacher: [],
+            backend: process.env.VUE_APP_BACKEND_URL,
+            base_endpoint: process.env.VUE_APP_BASE_ENDPOINT_PREFIX,
+            rl_letters_endpoint: process.env.VUE_APP_RL_LETTERS_ENDPOINT,
         }
     },
     created(){
@@ -52,7 +55,7 @@ export default {
             "name": "A. Tsadimas"
         }
         axios
-            .get(`${process.env.VUE_APP_BACKEND_URL}/rl_requests/${this.id}`)
+            .get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/${this.id}`)
             .then(res => {
                 this.rl_request = res.data
                 console.log(res.data)
@@ -61,7 +64,7 @@ export default {
                 this.errors.push(e)
             })
         axios
-            .get(`${process.env.VUE_APP_BACKEND_URL}/students/${this.id}`)
+            .get(`${this.backend}/${this.base_endpoint}/students/${this.id}`)
             .then(res => {
                 this.student = res.data
             })
@@ -69,7 +72,7 @@ export default {
                 this.errors.push(e)
             })
         axios
-            .get(`${process.env.VUE_APP_BACKEND_URL}/teachers/${this.id}`)
+            .get(`${this.backend}/${this.base_endpoint}/teachers/${this.id}`)
             .then(res => {
                 this.teacher = res.data
             })

@@ -68,7 +68,7 @@ export default {
     }
   },
   created(){
-        this.$emit('update:username', "anonymous");
+    this.$emit('update:username', "anonymous"); /*
     console.log(`${this.backend}/${this.auth_endpoint}/profile/`)
     axios.get(`${this.backend}/${this.auth_endpoint}/profile/`, headers)
     .then(res => {
@@ -82,7 +82,7 @@ export default {
     .catch(e => {
       this.errors.push(e);
       this.$emit('update:username', "anonymous");
-    })
+    })*/
     this.rl_requests = [
         {
           "id": 1,
@@ -94,9 +94,8 @@ export default {
     axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`, headers)
     .then(res => {
       this.rl_requests = res.data;
-      alert(res.data)
+      console.log(res.data)
       console.log(res.status)
-      
     })
     .catch(e => {
       console.log(e);
