@@ -27,7 +27,7 @@
 
 <script>
 import axios from "axios"
-import router from "../router"
+//import router from "../router"
 
 export default {
     name: "LoginView",
@@ -42,6 +42,22 @@ export default {
     },
     methods : {
         login(){
+          const formData = new FormData();
+          formData.set('username', this.username);
+          formData.set('password', this.password);
+          axios.post(
+              `${this.backend}/auth/jwt/login`,
+              formData,
+              {
+                  headers: {
+                      'Content-Type': 'multipart/form-data',
+                  },
+              },
+          )
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
+
+          /*
           const loginPayload = {
             username: this.username,
             password: this.password,
@@ -62,7 +78,7 @@ export default {
           .catch(err => console.log(err));
           this.username = ""
           this.password = ""
-        }
+        }*/}
     }
 }
 </script>
