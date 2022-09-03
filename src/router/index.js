@@ -28,12 +28,7 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView
-  },/*
-  {
-    path: '/logout',
-    name: 'logout',
-    component: LogoutView
-  },*/
+  },
   {
     path: '/signup',
     name: 'signuplogin',
