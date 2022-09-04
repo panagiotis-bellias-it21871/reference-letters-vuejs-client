@@ -11,6 +11,7 @@ import SignupLoginView from '../views/SignupLoginView.vue'
 import SignupStudentView from '../views/SignupStudentView.vue'
 import SignupTeacherView from '../views/SignupTeacherView.vue'
 import ReferenceLetterRequestDetails from '../views/ReferenceLetterRequestDetails.vue'
+import VerifyEmailToken from '../views/VerifyEmailToken.vue'
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: '/reference-letter-request-details/:id',
     name: 'rl-request-details',
     component: ReferenceLetterRequestDetails
+  },
+  {
+    path: '/verify_token/:token',
+    name: 'verify-token',
+    component: VerifyEmailToken
   },
   {
     path: '/admin',
