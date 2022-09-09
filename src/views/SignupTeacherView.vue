@@ -72,6 +72,7 @@ export default {
         password2: "",
         backend: process.env.VUE_APP_BACKEND_URL,
         base_endpoint: process.env.VUE_APP_BASE_ENDPOINT_PREFIX,
+        auth_endpoint: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX
       }
     },
     methods: {
@@ -80,16 +81,41 @@ export default {
         if (this.password != this.password2) {
           alert("Passwords don't match! Try again...")
           return
-        } else {
-          console.log(
-            "Username: " + this.username + "\n"+
-            "Fullname: " + this.fullname + "\n"+
-            "Email: " + this.email + "\n"+
-            "Description: " + this.description + "\n"+
-            "Password: " + this.password.length + " digits\n"
-          )
         }
+
+        console.log(
+          "Username: " + this.username + "\n"+
+          "Fullname: " + this.fullname + "\n"+
+          "Email: " + this.email + "\n"+
+          "Description: " + this.description + "\n"+
+          "Password: " + this.password.length + " digits\n"
+        )
         
+        let teacher_json = {
+          email: this.email,
+          password: this.password,
+          username: this.username,
+          full_name: this.fullname,
+          student: false,
+          teacher: true,
+        }
+
+        axios.post(`${this.backend}/${this.auth_endpoint}/register/`, {
+          teacher_json
+        })
+        .then(res => {
+          console.log(res)
+          axios.post(`${this.backend}/${this.auth_endpoint}/request-verify-token/`, {
+            email: this.email
+          })
+          .then(res => {
+            console.log(res)
+            alert("Check your email to activate your account")
+          })
+        })
+        .catch(err => console.log(err));
+
+        /*
         axios
         .post(`${this.backend}/${this.base_endpoint}/teachers/`, {
           //username: this.username,
@@ -102,7 +128,7 @@ export default {
           alert("Only name, email and description added!"),
           console.log(res) }
         )
-        .catch(err => console.log(err));
+        .catch(err => console.log(err)); */
       }
     }
 }
