@@ -91,18 +91,12 @@ export default {
           "Password: " + this.password.length + " digits\n"
         )
         
-        let teacher_json = {
+        axios.post(`${this.backend}/${this.auth_endpoint}/register`, {
           email: this.email,
           password: this.password,
           username: this.username,
           full_name: this.fullname,
-          student: false,
-          teacher: true,
-        }
-
-        axios.post(`${this.backend}/${this.auth_endpoint}/register/`, {
-          teacher_json
-        })
+          teacher: true})
         .then(res => {
           console.log(res)
           axios.post(`${this.backend}/${this.auth_endpoint}/request-verify-token/`, {
