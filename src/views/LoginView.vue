@@ -26,8 +26,9 @@
 </template>
 
 <script>
-import axios from "axios"
-//import router from "../router"
+//import axios from "axios"
+import { userService } from '../__services';
+import router from "../router"
 
 export default {
     name: "LoginView",
@@ -37,11 +38,20 @@ export default {
             password: "",
             backend: process.env.VUE_APP_BACKEND_URL,
             auth: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX,
-            signin: process.env.VUE_APP_AUTH_LOGIN_ENDPOINT
+            signin: process.env.VUE_APP_AUTH_LOGIN_ENDPOINT,
+            returnUrl: '',
+            error: ''
         }
     },
     methods : {
         login(){
+          userService.login(this.username, this.password)
+                .then(router.push(this.returnUrl),
+                    error => {
+                        this.error = error;
+                    }
+                );
+          /*
           const formData = new FormData();
           formData.set('username', this.username);
           formData.set('password', this.password);
@@ -56,7 +66,7 @@ export default {
           )
           .then((response) => console.log(response))
           .catch((error) => console.log(error));
-
+              */
           /*
           const loginPayload = {
             username: this.username,
@@ -79,6 +89,13 @@ export default {
           this.username = ""
           this.password = ""
         }*/}
+    },
+    created() {
+      // reset login status
+      userService.logout();
+
+      // get return url from route parameters or default to '/'
+      this.returnUrl = this.$route.query.returnUrl || '/';
     }
 }
 </script>

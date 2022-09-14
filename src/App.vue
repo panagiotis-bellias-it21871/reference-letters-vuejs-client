@@ -32,6 +32,7 @@ export default ({
   },
   created() {
     this.username = ""
+    alert(localStorage.getItem('token'))
   }
 })
 </script>

@@ -73,12 +73,30 @@ const routes = [
     path: '/admin/rl_requests',
     name: 'adminrefletterspanel',
     component: AdminRefLettersView
-  }
+  },
+  // otherwise redirect to home
+  //{ path: '*', redirect: '/' }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login', '/', '/signup', '/signup/student', '/signup/teacher', '/about'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('token');
+
+  if (authRequired && !loggedIn) {
+    return next({ 
+      path: '/login', 
+      query: { returnUrl: to.path } 
+    });
+  }
+
+  next();
 })
 
 export default router

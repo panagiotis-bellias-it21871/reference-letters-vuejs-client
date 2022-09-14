@@ -68,6 +68,7 @@ export default {
     }
   },
   created(){
+    alert(localStorage.getItem('token'))
     this.$emit('update:username', "anonymous"); /*
     console.log(`${this.backend}/${this.auth_endpoint}/profile/`)
     axios.get(`${this.backend}/${this.auth_endpoint}/profile/`, headers)
@@ -86,7 +87,7 @@ export default {
     this.rl_requests = [
         {
           "id": 1,
-          "carrierName": "Quintessential SFT",
+          "carrier_name": "Quintessential SFT",
           "status": "pending"
         }
       ]
