@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <HeaderPage v-bind:username="username"/>
+    <HeaderPage/>
     <div class="container">
-      <router-view v-bind:username="username"/>
+      <router-view/>
       <br>
       <a data-cy="link" href="https://www.youtube.com/watch?v=-Pa3fUusLJ0&ab_channel=BasicsAdda">VueJS Tutorial</a> / 
       <a data-cy="link" href="https://www.hua.gr/index.php/en/">Harokopio University</a> /
@@ -18,7 +18,6 @@ import HeaderPage from '@/components/HeaderPage.vue'
 
 export default ({
   name: 'App',
-  //props: ["keycloak"],
   components: {
     HeaderPage
   },
@@ -26,13 +25,8 @@ export default ({
   },
   data() {
     return {
-      username: "",
       errors: [],
     }
-  },
-  created() {
-    this.username = ""
-    alert(localStorage.getItem('token'))
   }
 })
 </script>

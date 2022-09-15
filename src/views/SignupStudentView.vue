@@ -54,6 +54,7 @@
 
 <script>
 import { userService } from '../__services';
+import router from '../router';
 
 export default {
     name: "SignupStudentView",
@@ -71,9 +72,11 @@ export default {
     },
     methods : {
       signupstudent() {
-        if (userService.signupstudent(
+        userService.signupstudent(
           this.username, this.email, this.fullName, this.school, this.schid, this.grades, this.password, this.password2 
-        )) alert("Check your email account to follow the account verification link.")
+        )
+        alert("Check your email account to follow the account verification link.")
+        router.push("/")
       }
     }
 }

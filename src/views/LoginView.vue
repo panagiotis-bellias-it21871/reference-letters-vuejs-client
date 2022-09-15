@@ -4,8 +4,8 @@
       <div class="card-body">
           <form @submit.prevent="login">
               <div class="form-group">
-                <label>Username</label>
-                <input v-model="username" type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
+                <label>Email</label>
+                <input v-model="email" type="text" name="email" id="email" class="form-control" placeholder="Enter your email">
               </div>
               <div class="form-group">
                 <label>Password</label>
@@ -34,68 +34,28 @@ export default {
     name: "LoginView",
     data(){
         return {
-            username: "",
+            email: "",
             password: "",
             backend: process.env.VUE_APP_BACKEND_URL,
             auth: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX,
             signin: process.env.VUE_APP_AUTH_LOGIN_ENDPOINT,
-            returnUrl: '',
             error: ''
         }
     },
     methods : {
         login(){
-          userService.login(this.username, this.password)
-                .then(router.push(this.returnUrl),
-                    error => {
-                        this.error = error;
-                    }
-                );
-          /*
-          const formData = new FormData();
-          formData.set('username', this.username);
-          formData.set('password', this.password);
-          axios.post(
-              `${this.backend}/auth/jwt/login`,
-              formData,
-              {
-                  headers: {
-                      'Content-Type': 'multipart/form-data',
-                  },
-              },
-          )
-          .then((response) => console.log(response))
-          .catch((error) => console.log(error));
-              */
-          /*
-          const loginPayload = {
-            username: this.username,
-            password: this.password,
+          var res = userService.login(this.email, this.password)
+          if(res.status == 200){
+            
+            alert("Wrong credentials or internal error!")
+          } else {
+            router.push('/') 
           }
-          const {username, password} = loginPayload;
-          console.log(`${this.backend}/${this.auth}/${this.signin}`);
-          console.log(username);
-          console.log(password)
-          axios
-          .post(`${this.backend}/${this.auth}/${this.signin}`, {
-            username,
-            password,
-          })
-          .then(res => {(this.username = [...this.username, res.data])
-          console.log(res.data)
-          router.push("/")
-        })
-          .catch(err => console.log(err));
-          this.username = ""
-          this.password = ""
-        }*/}
+        }
     },
     created() {
       // reset login status
       userService.logout();
-
-      // get return url from route parameters or default to '/'
-      this.returnUrl = this.$route.query.returnUrl || '/';
     }
 }
 </script>

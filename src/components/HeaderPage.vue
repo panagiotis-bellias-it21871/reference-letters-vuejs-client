@@ -22,11 +22,12 @@
         </div>
       </div>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto"><!--
           <li v-if="username" class="nav-item active">
             <button v-on:click=logout() class="btn btn-primary nav-link">Logout</button>
           </li>
-          <li v-else class="nav-item active">
+          <li v-else class="nav-item active">-->
+            <li class="nav-item active">
           <router-link  to="/login" class="btn btn-primary nav-link">Login</router-link>
           </li>
         </ul>
@@ -42,22 +43,17 @@
 
 <script>
 //import axios from "axios"
-import router from "../router"
+//import router from "../router"
 
 export default {
   name: 'HeaderPage',
-  props: ["username"],
   data(){
     return {
       siteTitle: "Reference Letters App",
     }
   },
   methods : {
-    logout(){
-      alert("Logout!")
-      // send /logout POST
-      router.push("/")
-    }
+    // TODO take user info if token exists
   }
 }
 </script>

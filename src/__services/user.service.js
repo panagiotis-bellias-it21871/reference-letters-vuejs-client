@@ -14,6 +14,7 @@ const auth_endpoint=process.env.VUE_APP_AUTH_ENDPOINT_PREFIX
 const login_endpoint=process.env.VUE_APP_AUTH_LOGIN_ENDPOINT
 
 function login(username, password) {
+    var response = '';
     const formData = new FormData();
           formData.set('username', username);
           formData.set('password', password);
@@ -28,10 +29,10 @@ function login(username, password) {
             // to keep user logged in between page refreshes
             localStorage.setItem('token', jwt);
         }
-
-        return jwt;
+        response = res;
     })
     .catch(err => console.log(err));
+    return response;
 }
 
 function logout() {
@@ -48,7 +49,7 @@ function signupstudent(
 ) {
     if (password != password2) {
         alert("Passwords don't match! Try again...")
-        return;
+        return false;
     }
     let student = true
     let teacher = false
@@ -73,7 +74,9 @@ function signupstudent(
             .then(res => console.log(res))
             .catch(err => console.log(err));
         }
-    })
+        return true
+    }
+    )
     .catch(err => console.log(err));
 }
 
