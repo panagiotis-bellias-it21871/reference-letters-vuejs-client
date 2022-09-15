@@ -40,20 +40,7 @@ function logout() {
 }
 
 function handleResponse(response) {
-    let data = response.data['access_token']
-    /*
-    if (!response.ok) {
-        if (response.status === 401) {
-            // auto logout if 401 response returned from api
-            logout();
-            location.reload(true);
-        }
-
-        const error = (data && data.message) || response.statusText;
-        return Promise.reject(error);
-    }*/
-
-    return data;
+    return response.data['access_token'];
 }
 
 function signupstudent(
@@ -78,7 +65,7 @@ function signupstudent(
             .then(res => console.log(res))
             .catch(err => console.log(err));
             
-            let user_username = username
+            var user_username = username
             axios
             .post(`${backend}/${base_endpoint}/students`, {
                 school, school_id, grades_url, user_username

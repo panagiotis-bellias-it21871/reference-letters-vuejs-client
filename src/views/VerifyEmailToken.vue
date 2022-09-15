@@ -19,20 +19,20 @@
       return {
         token: this.$route.params.token,
         errors: [],
+        ok: false,
         backend: process.env.VUE_APP_BACKEND_URL,
         auth_endpoint: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX
       }
     },
     created(){
         var token = this.token
-        alert(token)
         axios
         .post(`${this.backend}/${this.auth_endpoint}/verify`,{
             token
         }, headers)
         .then(res => {
             this.ok = true
-            alert(res.data)
+            console.log(res.data)
         })
         .catch(e => {
             this.errors.push(e)

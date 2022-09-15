@@ -71,9 +71,9 @@ export default {
     },
     methods : {
       signupstudent() {
-        userService.signupstudent(
+        if (userService.signupstudent(
           this.username, this.email, this.fullName, this.school, this.schid, this.grades, this.password, this.password2 
-        )
+        )) alert("Check your email account to follow the account verification link.")
       }
     }
 }
