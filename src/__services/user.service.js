@@ -4,14 +4,13 @@
 import axios from "axios";
 
 let headers = {
-    'Access-Control-Allow-Origin' : '*' //,
-    //'Content-Type': 'application/json'
+    'Access-Control-Allow-Origin' : '*'
   }
 
 const backend=process.env.VUE_APP_BACKEND_URL
-//const base_endpoint=process.env.VUE_APP_BASE_ENDPOINT_PREFIX
+const base_endpoint=process.env.VUE_APP_BASE_ENDPOINT_PREFIX
 //const rl_letters_endpoint=process.env.VUE_APP_RL_LETTERS_ENDPOINT
-//const auth_endpoint=process.env.VUE_APP_AUTH_ENDPOINT_PREFIX
+const auth_endpoint=process.env.VUE_APP_AUTH_ENDPOINT_PREFIX
 const login_endpoint=process.env.VUE_APP_AUTH_LOGIN_ENDPOINT
 
 function login(username, password) {
@@ -57,8 +56,43 @@ function handleResponse(response) {
     return data;
 }
 
+function signupstudent(
+   username, email, full_name, school, school_id, grades_url, password, password2 
+) {
+    if (password != password2) {
+        alert("Passwords don't match! Try again...")
+        return;
+    }
+    let student = true
+    let teacher = false
+    axios
+    .post(`${backend}/${auth_endpoint}/register`, {
+        email, password, username, full_name, student, teacher
+    }, headers+={'Content-Type': 'application/json'})
+    .then(res => {
+        if (res.data["email"] == email){
+            axios
+            .post(`${backend}/${auth_endpoint}/request-verify-token`, {
+                email
+            }, headers+={'Content-Type': 'application/json'})
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+            
+            let user_username = username
+            axios
+            .post(`${backend}/${base_endpoint}/students`, {
+                school, school_id, grades_url, user_username
+            }, headers+={'Content-Type': 'application/json'})
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        }
+    })
+    .catch(err => console.log(err));
+}
+
 export const userService = {
     login,
-    logout //,
+    logout,
+    signupstudent, //,
     //getAll
 };
