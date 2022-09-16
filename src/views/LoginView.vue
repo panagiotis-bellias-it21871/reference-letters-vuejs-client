@@ -44,13 +44,9 @@ export default {
     },
     methods : {
         login(){
-          var res = userService.login(this.email, this.password)
-          if(res.status == 200){
-            
-            alert("Wrong credentials or internal error!")
-          } else {
-            router.push('/') 
-          }
+          let ok = userService.login(this.email, this.password)
+          if (ok) router.push('/')
+          else alert("Wrong credentials or internal error!")
         }
     },
     created() {

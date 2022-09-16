@@ -44,16 +44,21 @@
 <script>
 //import axios from "axios"
 //import router from "../router"
+import { userService } from '../__services';
 
 export default {
   name: 'HeaderPage',
   data(){
     return {
+      user: "",
       siteTitle: "Reference Letters App",
     }
   },
   methods : {
-    // TODO take user info if token exists
+  },
+  created() {
+      this.user = userService.getuser();
+      console.log(this.user)
   }
 }
 </script>
