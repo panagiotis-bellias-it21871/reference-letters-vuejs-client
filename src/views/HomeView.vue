@@ -1,13 +1,11 @@
 <template>
   <div class="home">
     <img alt="Reference Letter Logo" src="../assets/logo.jpg">
-    <!-- <div v-if=user> --><!--
-    <div>
+    <div v-if="user['email']">
       <AddReferenceLetterRequest v-on:add-reference-letter-request="addRlRequest"/>
       <ReferenceLetterRequestList v-on:del-rl-request="deleteRlRequest" v-bind:rl_requests="rl_requests" v-bind:errors="errors"/>
     </div>
-    <div v-else><br/>-->
-    <div><br/>
+    <div v-else><br/>
       <SignupLoginView/>
       <OwnerDetails/>
     </div>
@@ -20,21 +18,23 @@ import axios from "axios"
 let headers = {'Access-Control-Allow-Origin' : '*'}
 
 // @ is an alias to /src
-//import AddReferenceLetterRequest from "@/views/AddReferenceLetterRequest.vue"
-//import ReferenceLetterRequestList from "@/views/ReferenceLetterRequestList.vue"
+import AddReferenceLetterRequest from "@/views/AddReferenceLetterRequest.vue"
+import ReferenceLetterRequestList from "@/views/ReferenceLetterRequestList.vue"
 import SignupLoginView from "./SignupLoginView.vue"
 import OwnerDetails from "./OwnerDetails.vue"
 
 export default {
   name: 'HomeView',
+  //props: ['user'],
   components: {
-  //  AddReferenceLetterRequest,
-  //  ReferenceLetterRequestList,
+    AddReferenceLetterRequest,
+    ReferenceLetterRequestList,
     SignupLoginView,
     OwnerDetails
   },
   data(){
     return {
+      user: [],
       rl_requests: [],
       errors: [],
       backend: process.env.VUE_APP_BACKEND_URL,
@@ -69,13 +69,14 @@ export default {
     }
   },
   created(){
+    this.user = this.$route.params.user;
     this.rl_requests = [
         {
           "id": 1,
           "carrier_name": "Quintessential SFT",
           "status": "pending"
         }
-      ] /*
+      ]
     console.log(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`)
     axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`, headers)
     .then(res => {
@@ -85,7 +86,7 @@ export default {
     })
     .catch(e => {
       console.log(e);
-    })*/
+    })
 
   }
 }

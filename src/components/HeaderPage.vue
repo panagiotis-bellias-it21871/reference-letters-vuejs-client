@@ -1,7 +1,7 @@
 <template>
   <nav id="nav" class="navbar navbar-expand-lg navbar-dark mb-3">
     <div class="container">
-      <router-link to="/" class="navbar-brand">{{siteTitle}}</router-link>
+      <router-link :to="{ name: 'home', params: {user: this.user}}" class="navbar-brand">{{siteTitle}}</router-link>
       <div class="col-6 text-right">
         <p></p>
         <p>Web system about reference letters handling</p>
@@ -42,8 +42,6 @@
 
 <script>
 import axios from "axios"
-//import router from "../router"
-//import { userService } from '../__services';
 import { authHeader } from "../__helpers/auth-header";
 
 const backend=process.env.VUE_APP_BACKEND_URL
@@ -53,40 +51,17 @@ export default {
   data(){
     return {
       user: [],
-      username: "",
       siteTitle: "Reference Letters App",
     }
   },
-  methods : { /*
-    m() {
-      /*const getData = async () => {
-        const {data} = await axios.get(`${backend}/users/me`, {
-            headers: authHeader(),
-        })
-        user = data;
-        return data
-      }
-      getData();
-      alert(user.email);
-      const func1 = () => {
-        return axios.get(`${backend}/users/me`, {
-            headers: authHeader(),
-        }).then(response => {return response.data})
-      }
-      func1().then(data => {
-        this.user = data;
-      })
-    }*/
+  methods : {
   },
-  created() { /*
-    this.m()
-    alert(this.user["email"])
-    */
+  created() {
     axios.get(`${backend}/users/me`, {
       headers: authHeader(),
     }).then(response => {
       this.user = response.data
-      console.log(response.data)
+      console.log("Logged in user info fetched with status code: " + response.status)
     }).catch(e => {
       console.log(e);
     })
