@@ -18,16 +18,15 @@
       </div>
       <div>
         <div>
-          <p v-if="username" class="pt-3">Welcome <strong>{{ username }}</strong></p>
+          <p v-if="user['email']" class="pt-3">Welcome <strong>{{ user["username"] }}</strong></p>
         </div>
       </div>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto"><!--
-          <li v-if="username" class="nav-item active">
+        <ul class="navbar-nav ml-auto">
+          <li v-if="user['email']" class="nav-item active">
             <button v-on:click=logout() class="btn btn-primary nav-link">Logout</button>
           </li>
-          <li v-else class="nav-item active">-->
-            <li class="nav-item active">
+          <li v-else class="nav-item active">
           <router-link  to="/login" class="btn btn-primary nav-link">Login</router-link>
           </li>
         </ul>
@@ -42,23 +41,55 @@
 </template>
 
 <script>
-//import axios from "axios"
+import axios from "axios"
 //import router from "../router"
-import { userService } from '../__services';
+//import { userService } from '../__services';
+import { authHeader } from "../__helpers/auth-header";
+
+const backend=process.env.VUE_APP_BACKEND_URL
 
 export default {
   name: 'HeaderPage',
   data(){
     return {
-      user: "",
+      user: [],
+      username: "",
       siteTitle: "Reference Letters App",
     }
   },
-  methods : {
+  methods : { /*
+    m() {
+      /*const getData = async () => {
+        const {data} = await axios.get(`${backend}/users/me`, {
+            headers: authHeader(),
+        })
+        user = data;
+        return data
+      }
+      getData();
+      alert(user.email);
+      const func1 = () => {
+        return axios.get(`${backend}/users/me`, {
+            headers: authHeader(),
+        }).then(response => {return response.data})
+      }
+      func1().then(data => {
+        this.user = data;
+      })
+    }*/
   },
-  created() {
-      this.user = userService.getuser();
-      console.log(this.user)
+  created() { /*
+    this.m()
+    alert(this.user["email"])
+    */
+    axios.get(`${backend}/users/me`, {
+      headers: authHeader(),
+    }).then(response => {
+      this.user = response.data
+      console.log(response.data)
+    }).catch(e => {
+      console.log(e);
+    })
   }
 }
 </script>

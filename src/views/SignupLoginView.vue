@@ -12,6 +12,8 @@
 export default {
     name: "SignupLoginView",
     data(){
+      return {
+      }
     },
 }
 </script>

@@ -75,7 +75,7 @@ export default {
           "carrier_name": "Quintessential SFT",
           "status": "pending"
         }
-      ]
+      ] /*
     console.log(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`)
     axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`, headers)
     .then(res => {
@@ -85,7 +85,7 @@ export default {
     })
     .catch(e => {
       console.log(e);
-    })
+    })*/
 
   }
 }

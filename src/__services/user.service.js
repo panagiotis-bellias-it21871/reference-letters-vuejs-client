@@ -1,5 +1,5 @@
 //import config from 'config';
-import { authHeader } from "../__helpers/auth-header";
+//import { authHeader } from "../__helpers/auth-header";
 import axios from "axios";
 
 let headers = {
@@ -51,32 +51,21 @@ function handleResponse(response) {
     return response.data['access_token'];
 }
 
-async function getuser() {
-    return new Promise((resolve)=>{
-        let user={}
-        headers = headers + authHeader() + { 'Content-Type': 'application/json' }
-        console.log(headers)
-        axios.get(`${backend}/users/me`, 
-            {   'Access-Control-Allow-Origin' : '*',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            }
-        )
-        .then(res => {
-            console.log(res)
-            user=res.data["user"]
-            console.log(user)
-            return user;
-        }).catch(err => console.log(err))
-
-        
-        setTimeout(()=>{
-            resolve();
-        } , 5000
-        );
+/*
+function getuser() {
+    var user = ''
+    axios.get(`${backend}/users/me`, {
+        headers: authHeader(),
+    })
+    .then(res => {
+        user = JSON.stringify(res.data)
+        console.log("User = ", user)
+    }).catch(err => {
+        console.log(err);
     })
 
-}
+    return user;
+}*/
 
 function signupstudent(
    username, email, full_name, school, school_id, grades_url, password, password2 
@@ -118,6 +107,6 @@ export const userService = {
     login,
     logout,
     signupstudent, //,
-    getuser,
+    //getuser,
     //getAll
 };
