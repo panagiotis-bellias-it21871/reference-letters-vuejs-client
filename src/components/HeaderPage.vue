@@ -1,7 +1,7 @@
 <template>
   <nav id="nav" class="navbar navbar-expand-lg navbar-dark mb-3">
     <div class="container">
-      <router-link :to="{ name: 'home', params: {user: this.user}}" class="navbar-brand">{{siteTitle}}</router-link>
+      <router-link to="/" class="navbar-brand">{{siteTitle}}</router-link>
       <div class="col-6 text-right">
         <p></p>
         <p>Web system about reference letters handling</p>
@@ -18,12 +18,12 @@
       </div>
       <div>
         <div>
-          <p v-if="user['email']" class="pt-3">Welcome <strong>{{ user["username"] }}</strong></p>
+          <p v-if="this.user['email']" class="pt-3">Welcome <strong>{{ this.user["username"] }}</strong></p>
         </div>
       </div>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li v-if="user['email']" class="nav-item active">
+          <li v-if="this.user['email']" class="nav-item active">
             <button v-on:click=logout() class="btn btn-primary nav-link">Logout</button>
           </li>
           <li v-else class="nav-item active">
@@ -42,6 +42,7 @@
 
 <script>
 import axios from "axios"
+import { userService } from '../__services';
 import { authHeader } from "../__helpers/auth-header";
 
 const backend=process.env.VUE_APP_BACKEND_URL
@@ -55,6 +56,9 @@ export default {
     }
   },
   methods : {
+    logout() {
+      userService.logout(true);
+    }
   },
   created() {
     axios.get(`${backend}/users/me`, {

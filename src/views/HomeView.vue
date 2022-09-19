@@ -15,17 +15,18 @@
 <script>
 
 import axios from "axios"
-let headers = {'Access-Control-Allow-Origin' : '*'}
 
 // @ is an alias to /src
 import AddReferenceLetterRequest from "@/views/AddReferenceLetterRequest.vue"
 import ReferenceLetterRequestList from "@/views/ReferenceLetterRequestList.vue"
 import SignupLoginView from "./SignupLoginView.vue"
 import OwnerDetails from "./OwnerDetails.vue"
+import { authHeader } from "../__helpers/auth-header";
+import router from "../router"
 
+const backend=process.env.VUE_APP_BACKEND_URL
 export default {
   name: 'HomeView',
-  //props: ['user'],
   components: {
     AddReferenceLetterRequest,
     ReferenceLetterRequestList,
@@ -43,7 +44,7 @@ export default {
       auth_endpoint: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX
     }
   },
-  methods : { /* TODO Fix code below */
+  methods : {
     addRlRequest(newRlRequest) { 
       const { name, is_approved, is_declined, is_pending } = newRlRequest;
       axios
@@ -58,7 +59,7 @@ export default {
     },
     deleteRlRequest(id) {
       axios
-        .delete(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/${id}`, headers)
+        .delete(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/${id}`)//, headers)
         .then(res => {
           this.rl_requests = this.rl_requests.filter(rl_request => rl_request.id !== id)
           console.log(res);
@@ -69,24 +70,50 @@ export default {
     }
   },
   created(){
-    this.user = this.$route.params.user;
-    this.rl_requests = [
-        {
-          "id": 1,
-          "carrier_name": "Quintessential SFT",
-          "status": "pending"
-        }
-      ]
+    axios.get(`${backend}/users/me`, {
+      headers: authHeader(),
+    }).then(response => {
+      this.user = response.data
+      console.log("Logged in user info fetched with status code: " + response.status)
+    }).catch(e => {
+      console.log(e);
+    })
+
+    axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/s/1`, {
+      headers: authHeader(),
+    })
+    .then(res => {
+      this.rl_requests = res.data;
+      console.log(res.data)
+      if (this.rl_requests == []) alert("No reference letter requests yet!")
+      console.log(res.status)
+    })
+    .catch(e => {
+      if (e["response"]["status"] == 403){
+        alert("Login as student to continue!")
+        router.push("/login")
+      }
+      console.log(e["response"]["status"]);
+    })
+
+    /*
     console.log(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`)
-    axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`, headers)
+    axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`, {
+      headers: authHeader(),
+    })
     .then(res => {
       this.rl_requests = res.data;
       console.log(res.data)
       console.log(res.status)
     })
     .catch(e => {
-      console.log(e);
+      if (e["response"]["status"] == 403){
+        alert("Login as admin to continue!")
+        router.push("/login")
+      }
+      console.log(e["response"]["status"]);
     })
+    */
 
   }
 }

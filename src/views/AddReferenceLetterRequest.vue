@@ -9,12 +9,21 @@
             <div class="card-body">
                 <form @submit.prevent="addRlRequest">
                     <div class="form-group">
-                      <label>Choose Teacher</label>
-                      <input v-model="title" type="text" name="title" id="" class="form-control" placeholder="Enter request title">
+                        <label>Select teacher from the list)</label>
+                        <select v-model="teacher" name="teacher" id="teacher" class="form-control">
+                        <option value="1">Anargyros Tsadimas</option>
+                        <option value="2">Thomas Kamalakis</option>
+                        <option value="3">Georgios Kousiouris</option>
+                        <option value="4">Christos Diou</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                      <label>Reference Letter Request Details</label>
-                      <input v-model="completedAns" type="text" name="completedAns" class="form-control" placeholder="Enter if completed">
+                      <label>Carrier / University Name</label>
+                      <input v-model="carrierName" type="text" name="carrierName" class="form-control" placeholder="Name of company or university">
+                    </div>
+                    <div class="form-group">
+                      <label>Carrier / University Email Address</label>
+                      <input v-model="carrierEmail" type="email" name="carrierEmail" class="form-control" placeholder="Email address of company or university">
                     </div>
                     <div class="row">
                         <div class="col-6 mx-auto">
@@ -34,8 +43,9 @@ export default {
         return {
             formDiv: false,
             title: "",
-            completedAns: "",
-            completed: false
+            teacher: 0,
+            carrierName: "",
+            carrierEmail: "",
         }
     },
     methods: {
@@ -43,20 +53,13 @@ export default {
             this.formDiv = true;
         },
         addRlRequest(){
-            if(this.completedAns == "true"){
-                this.approved = true
-            }
-
             const newRlRequest = {
-                title: this.title,
-                is_approved: this.approved,
-                is_declined: false,
-                is_pending: false,
+                teacher_id: this.teacher,
+                carrier_name: this.carrierName,
+                carrier_email: this.carrier_email
             }
             // Send up to parent
             this.$emit("add-reference-letter-request", newRlRequest)
-            this.title = ""
-            this.completed = false
         }
     }
 }

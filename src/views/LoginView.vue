@@ -26,7 +26,6 @@
 </template>
 
 <script>
-//import axios from "axios"
 import { userService } from '../__services';
 import router from "../router"
 
@@ -45,7 +44,11 @@ export default {
     methods : {
         login(){
           let ok = userService.login(this.email, this.password)
-          if (ok) router.push('/')
+          if (ok) {
+            setTimeout(function() {
+              router.push('/');
+            }, 1000);
+          }
           else alert("Wrong credentials or internal error!")
         }
     },

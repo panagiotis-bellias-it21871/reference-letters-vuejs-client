@@ -8,36 +8,14 @@
                 <label>Username</label>
                 <input v-model="username" type="text" name="username" id="username" class="form-control" placeholder="Enter your username">
               </div>
-
+              <div class="form-group">
+                <label>Email</label>
+                <input v-model="email" type="text" name="email" id="email" class="form-control" placeholder="Enter your email">
+              </div>
               <div class="form-group">
                 <label>Full Name</label>
                 <input v-model="fullname" type="text" name="fullname" id="fullname" class="form-control" placeholder="Enter your full name">
-              </div><!--
-              <div class="form-group">
-                <label>University (Select from the list)</label>
-                <select v-model="university" name="university" id="university" class="form-control">
-                  <option value="harokopio">Harokopio University of Athens</option>
-                </select>
               </div>
-              <div class="form-group">
-                <label>School / Department (Select from the list)</label>
-                <select v-model="school" name="school" id="school" class="form-control">
-                  <option value="dit">Informatics and Telematics</option>
-                  <option value="geo">Geography</option>
-                  <option value="ddns">Nutrition and Dietetics</option>
-                  <option value="dhee">Economics & Sustainable Development</option>
-                </select>
-              </div>  -->
-              <div class="form-group">
-                <label>Email Address</label>
-                <input v-model="email" type="email" name="email" id="email" class="form-control" placeholder="Enter your email address">
-              </div>
-              <div class="form-group">
-                <label>Tell us a few words for yourself!</label>
-                <textarea v-model="description" type="text" name="description" rows="9" cols="40"
-                id="description" class="form-control" placeholder="Studies / Titles / Work / Projects"/>
-              </div>
-
               <div class="form-group">
                 <label>Password</label>
                 <input v-model="password" type="password" name="password" class="form-control" placeholder="Enter your password" size="1">
@@ -45,6 +23,11 @@
               <div class="form-group">
                 <label>Password Confirmation</label>
                 <input v-model="password2" type="password" name="password2" class="form-control" placeholder="Confirm your password" size="1">
+              </div>
+              <div class="form-group">
+                <label>Tell us a few words for yourself!</label>
+                <textarea v-model="description" type="text" name="description" rows="9" cols="40"
+                id="description" class="form-control" placeholder="Studies / Titles / Work / Projects"/>
               </div>
               <div class="row">
                   <div class="col-6 mx-auto">
@@ -58,8 +41,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-
+import { userService } from '../__services';
+import router from '../router';
 export default {
     name: "SignupTeacherView",
     data(){
@@ -77,52 +60,12 @@ export default {
     },
     methods: {
       signupteacher() {
-        
-        if (this.password != this.password2) {
-          alert("Passwords don't match! Try again...")
-          return
-        }
-
-        console.log(
-          "Username: " + this.username + "\n"+
-          "Fullname: " + this.fullname + "\n"+
-          "Email: " + this.email + "\n"+
-          "Description: " + this.description + "\n"+
-          "Password: " + this.password.length + " digits\n"
+        userService.signupteacher(
+          this.username, this.fullName, this.email, this.description, this.password, this.password2 
         )
-        
-        axios.post(`${this.backend}/${this.auth_endpoint}/register`, {
-          email: this.email,
-          password: this.password,
-          username: this.username,
-          full_name: this.fullname,
-          teacher: true})
-        .then(res => {
-          console.log(res)
-          axios.post(`${this.backend}/${this.auth_endpoint}/request-verify-token/`, {
-            email: this.email
-          })
-          .then(res => {
-            console.log(res)
-            alert("Check your email to activate your account")
-          })
-        })
-        .catch(err => console.log(err));
+        alert("Check your email account to follow the account verification link.")
+        router.push("/")
 
-        /*
-        axios
-        .post(`${this.backend}/${this.base_endpoint}/teachers/`, {
-          //username: this.username,
-          //password: this.password,
-          name: this.fullname,
-          email: this.email,
-          description: this.description
-        })
-        .then(res => {
-          alert("Only name, email and description added!"),
-          console.log(res) }
-        )
-        .catch(err => console.log(err)); */
       }
     }
 }
