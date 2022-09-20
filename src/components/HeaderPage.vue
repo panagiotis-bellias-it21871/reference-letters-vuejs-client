@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 import { userService } from '../__services';
 import { authHeader } from "../__helpers/auth-header";
 
