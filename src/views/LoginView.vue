@@ -47,7 +47,7 @@ export default {
           if (ok) {
             setTimeout(function() {
               router.push('/');
-            }, 1000);
+            }, 3000);
           }
           else alert("Wrong credentials or internal error!")
         }

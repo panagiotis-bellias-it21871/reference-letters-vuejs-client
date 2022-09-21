@@ -60,12 +60,12 @@ export default {
     },
     methods: {
       signupteacher() {
-        userService.signupteacher(
-          this.username, this.fullName, this.email, this.description, this.password, this.password2 
-        )
-        alert("Check your email account to follow the account verification link.")
-        router.push("/")
-
+        if(userService.signupteacher(
+          this.username, this.fullname, this.email, this.description, this.password, this.password2 
+        )){
+          alert("Check your email account to follow the account verification link.")
+          router.push("/")
+        }
       }
     }
 }

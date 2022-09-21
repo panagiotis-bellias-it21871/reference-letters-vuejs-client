@@ -79,22 +79,23 @@ export default {
       console.log(e);
     })
 
-    axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/s/1`, {
-      headers: authHeader(),
-    })
-    .then(res => {
-      this.rl_requests = res.data;
-      console.log(res.data)
-      if (this.rl_requests == []) alert("No reference letter requests yet!")
-      console.log(res.status)
-    })
-    .catch(e => {
-      if (e["response"]["status"] == 403){
-        alert("Login as student to continue!")
-        router.push("/login")
-      }
-      console.log(e["response"]["status"]);
-    })
+    if (this.user["student"])
+      axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/s/1`, {
+        headers: authHeader(),
+      })
+      .then(res => {
+        this.rl_requests = res.data;
+        console.log(res.data)
+        if (this.rl_requests == []) alert("No reference letter requests yet!")
+        console.log(res.status)
+      })
+      .catch(e => {
+        if (e["response"]["status"] == 403){
+          alert("Login as student to continue!")
+          router.push("/login")
+        }
+        console.log(e["response"]["status"]);
+      })
 
     /*
     console.log(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`)

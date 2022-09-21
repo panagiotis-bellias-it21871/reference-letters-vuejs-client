@@ -51,7 +51,7 @@ function handleResponse(response) {
 }
 
 function signupstudent(
-   username, email, full_name, school, school_id, grades_url, password, password2 
+    user_username, email, full_name, school, school_id, grades_url, password, password2 
 ) {
     if (password != password2) {
         alert("Passwords don't match! Try again...")
@@ -59,6 +59,7 @@ function signupstudent(
     }
     let student = true
     let teacher = false
+    let username = user_username
     axios
     .post(`${backend}/${auth_endpoint}/register`, {
         email, password, username, full_name, student, teacher
@@ -74,7 +75,7 @@ function signupstudent(
             
             axios
             .post(`${backend}/${base_endpoint}/students`, {
-                school, school_id, grades_url, username
+                school, school_id, grades_url, user_username
             }, headers+={'Content-Type': 'application/json'})
             .then(res => console.log(res))
             .catch(err => console.log(err));
@@ -82,11 +83,14 @@ function signupstudent(
         return true
     }
     )
-    .catch(err => console.log(err));
+    .catch(err => {
+        console.log(err)
+        return false
+    });
 }
 
 function signupteacher(
-    username, full_name, email, description, password, password2 
+    user_username, full_name, email, description, password, password2 
  ) {
      if (password != password2) {
          alert("Passwords don't match! Try again...")
@@ -94,6 +98,7 @@ function signupteacher(
      }
      let student = false
      let teacher = true
+     let username = user_username
      axios
      .post(`${backend}/${auth_endpoint}/register`, {
          email, password, username, full_name, student, teacher
@@ -109,7 +114,7 @@ function signupteacher(
              
              axios
              .post(`${backend}/${base_endpoint}/teachers`, {
-                 description, username
+                 description, user_username
              }, headers+={'Content-Type': 'application/json'})
              .then(res => console.log(res))
              .catch(err => console.log(err));
@@ -117,7 +122,10 @@ function signupteacher(
          return true
      }
      )
-     .catch(err => console.log(err));
+     .catch(err => {
+        console.log(err)
+        return false
+    });
  }
 
 export const userService = {
