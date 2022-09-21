@@ -14,7 +14,7 @@
               </div>
               <div class="form-group">
                 <label>Full Name</label>
-                <input v-model="fullname" type="text" name="fullname" id="fullname" class="form-control" placeholder="Enter your full name">
+                <input v-model="fullName" type="text" name="fullName" id="fullName" class="form-control" placeholder="Enter your full name">
               </div>
               <div class="form-group">
                 <label>School / Department (Select from the list)</label>
