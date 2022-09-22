@@ -9,7 +9,7 @@
             <div class="card-body">
                 <form @submit.prevent="addRlRequest">
                     <div class="form-group">
-                        <label>Select teacher from the list)</label>
+                        <label>Select teacher (from the list)</label>
                         <select v-model="teacher" name="teacher" id="teacher" class="form-control">
                         <option value="1">Anargyros Tsadimas</option>
                         <option value="2">Thomas Kamalakis</option>
@@ -56,7 +56,7 @@ export default {
             const newRlRequest = {
                 teacher_id: this.teacher,
                 carrier_name: this.carrierName,
-                carrier_email: this.carrier_email
+                carrier_email: this.carrierEmail
             }
             // Send up to parent
             this.$emit("add-reference-letter-request", newRlRequest)

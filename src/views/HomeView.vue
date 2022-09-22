@@ -36,6 +36,7 @@ export default {
   data(){
     return {
       user: [],
+      student_id: 0,
       rl_requests: [],
       errors: [],
       backend: process.env.VUE_APP_BACKEND_URL,
@@ -46,13 +47,22 @@ export default {
   },
   methods : {
     addRlRequest(newRlRequest) { 
-      const { name, is_approved, is_declined, is_pending } = newRlRequest;
+      const { teacher_id, carrier_name, carrier_email } = newRlRequest;
+      const status = "pending"
+      const text = ""
+      const student_id = this.student_id + 1
+      console.log(this.student_id)
+
       axios
       .post(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}`, {
-        name,
-        is_approved,
-        is_declined,
-        is_pending,
+        carrier_name,
+        carrier_email,
+        status,
+        text,
+        teacher_id,
+        student_id
+      }, {
+        headers: authHeader(),
       })
       .then(res => (this.rl_requests = [...this.rl_requests, res.data]))
       .catch(err => console.log(err));
@@ -79,7 +89,7 @@ export default {
       console.log(e);
     })
 
-    if (this.user["student"])
+    if (this.user["student"]) {
       axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/s/1`, {
         headers: authHeader(),
       })
@@ -97,6 +107,28 @@ export default {
         console.log(e["response"]["status"]);
       })
 
+      this.student_id = function(){
+        if (this.user["student"]){
+          // GET STUDENT
+          console.log(`${this.backend}/${this.base_endpoint}/students/u/${this.user["username"]}`)
+          axios.get(`${this.backend}/${this.base_endpoint}/students/u/${this.user["username"]}`, {
+            headers: authHeader(),
+          })
+          .then(res => {
+            // GET ID
+            let student = res.data
+            console.log(res.data)
+            console.log(student)
+            console.log(student["id"])
+            return student["id"]
+          })
+          .catch(e => {
+            console.log(e);
+            return 0;
+          })
+        }
+      }
+    }
     /*
     console.log(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`)
     axios.get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/`, {
