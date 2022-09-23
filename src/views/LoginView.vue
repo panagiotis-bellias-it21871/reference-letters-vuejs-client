@@ -45,9 +45,9 @@ export default {
         login(){
           let ok = userService.login(this.email, this.password)
           if (ok) {
-            setTimeout(function() {
+            //setTimeout(function() {
               router.push('/');
-            }, 3000);
+            //}, 3000);
           }
           else alert("Wrong credentials or internal error!")
         }
