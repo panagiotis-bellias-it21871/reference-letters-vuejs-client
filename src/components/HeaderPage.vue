@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <router-link to="/" class="nav-link"><font-awesome-icon icon="home" /> Home</router-link>
+            <router-link to="/" class="nav-link"><font-awesome-icon icon="home" /> </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/about" class="nav-link">About</router-link>
@@ -37,7 +37,7 @@
             <a @click.prevent="logout" class="btn btn-primary nav-link"><font-awesome-icon icon="sign-out-alt" /> Logout</a>
           </li>
           <li v-if="!currentUser" class="nav-item active">
-            <router-link  to="/signup" class="nav-link"><font-awesome-icon icon="user-plus" /> Sign Up</router-link>
+            <router-link  to="/signup" class="nav-link"><font-awesome-icon icon="user-plus" /> </router-link>
           </li>
           <li v-if="!currentUser" class="nav-item active">
             <router-link  to="/login" class="btn btn-primary nav-link"><font-awesome-icon icon="sign-in-alt" /> Login</router-link>

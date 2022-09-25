@@ -2,7 +2,7 @@
   <div class="home">
     <img alt="Reference Letter Logo" src="../assets/logo.jpg">
     <div v-if="loggedIn">
-      <AddReferenceLetterRequest v-on:add-reference-letter-request="addRlRequest"/>
+      <AddReferenceLetterRequest v-if="student" v-on:add-reference-letter-request="addRlRequest"/>
       <ReferenceLetterRequestList v-bind:rl_requests="rl_requests" v-bind:errors="errors"/>
       <!--
         <ReferenceLetterRequestList v-on:del-rl-request="deleteRlRequest" v-bind:rl_requests="rl_requests" v-bind:errors="errors"/>  
