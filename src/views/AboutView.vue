@@ -410,8 +410,11 @@ echo -n <span class="hljs-symbol">'reference_letters_data</span>' | base64 # <sp
 
 <style scoped>
 h1 {
-  color: #fff;
+  color: rgb(0, 0, 0);
   padding: 0 15px;
   display: block;
+}
+* {
+  color: rgb(225, 188, 188);
 }
 </style>

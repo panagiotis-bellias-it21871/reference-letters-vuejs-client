@@ -4,7 +4,8 @@
     <div class="container">
       <router-view/>
       <br>
-      <a data-cy="link" href="https://www.youtube.com/watch?v=-Pa3fUusLJ0&ab_channel=BasicsAdda">VueJS Tutorial</a> / 
+      <a data-cy="link" href="https://www.youtube.com/watch?v=-Pa3fUusLJ0&ab_channel=BasicsAdda">Tutorial 1</a> / 
+      <a data-cy="link" href="https://www.google.com/url?q=https://www.bezkoder.com/vue-3-authentication-jwt/&sa=D&source=docs&ust=1664039034277234&usg=AOvVaw00dyzrYNL88J2O2hyr-D95">2</a> /
       <a data-cy="link" href="https://www.hua.gr/index.php/en/">Harokopio University</a> /
       <a data-cy="link" href="https://www.dit.hua.gr/index.php/en/">Department of Informatics and Telematics</a> /
       <a data-cy="link" href="https://github.com/panagiotis-bellias-it21871/reference-letters-system.git">GitHub repository</a> /
@@ -21,8 +22,6 @@ export default ({
   components: {
     HeaderPage
   },
-  setup() {
-  },
   data() {
     return {
       errors: [],
@@ -33,8 +32,14 @@ export default ({
 
 
 <style>
+#app {
+  background-color: #546276;
+}
 body {
   background: #222831;
+}
+p {
+  color: #efbb35;
 }
 .container {
   max-width: 900px;

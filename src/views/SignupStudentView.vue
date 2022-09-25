@@ -53,9 +53,8 @@
 </template>
 
 <script>
-import { userService } from '../__services';
-import router from '../router';
-
+import AuthService from "../services/auth-service.js";
+import axios from "axios";
 export default {
     name: "SignupStudentView",
     data(){
@@ -70,14 +69,48 @@ export default {
         password2: "",
       }
     },
-    methods : {
+    computed: {
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      },
+    },
+    mounted() {
+      if (this.loggedIn) {
+        this.$router.push("/profile");
+      }
+    },
+    methods: {
       signupstudent() {
-        if(userService.signupstudent(
-          this.username, this.email, this.fullName, this.school, this.schid, this.grades, this.password, this.password2 
-        )) {
-          alert("Check your email account to follow the account verification link.")
-          router.push("/")
+        if(this.password != this.password2) {
+          alert("Passwords don't match");
+          return;
         }
+        const student = {
+          username: this.username,
+          email: this.email,
+          fullname: this.fullName,
+          school: this.school,
+          schid: this.schid,
+          gradesurl: this.grades,
+          password: this.password
+        }
+        AuthService.registerStudent(student).then(
+          (res) => {
+            if(res.status == 202){
+              alert("Check your email account to follow the account verification link.")
+              this.$router.push("/")
+            }
+          },
+          (err) => {
+            console.log(err);
+            alert("Something went wrong! Try again...")
+            this.$router.push("/signup/student");
+          }
+        );
+        axios.post(process.env.VUE_APP_BACKEND_URL + "/" + process.env.VUE_APP_AUTH_ENDPOINT_PREFIX + "/request-verify-token", {
+          email: this.email
+        }).then((res) => console.log(res))
+        .catch((e) => console.log(e));
       }
     }
 }

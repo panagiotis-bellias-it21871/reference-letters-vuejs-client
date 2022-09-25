@@ -1,28 +1,41 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
+import SignupLoginView from '../views/SignupLoginView.vue'
+import SignupStudentView from '../views/SignupStudentView.vue'
+import SignupTeacherView from '../views/SignupTeacherView.vue'
+import VerifyEmailToken from '../views/VerifyEmailToken.vue'
+import AboutView from '../views/AboutView.vue'
+import ReferenceLetterRequestDetails from '../views/ReferenceLetterRequestDetails.vue'
+//lazy-loaded
+const ProfileView = () => import("../views/ProfileView.vue")
+/*
+const BoardAdmin = () => import("./components/BoardAdmin.vue")
+const BoardAdminStudents = () => import("./components/BoardAdminStudents.vue")
+const BoardAdminTeachers = () => import("./components/BoardAdminTeachers.vue")
+const BoardAdminRlRequests = () => import("./components/BoardAdminRlRequests.vue")
+//const BoardModerator = () => import("./components/BoardModerator.vue")
+//const BoardUser = () => import("./components/BoardUser.vue")
 import AdminView from '../views/AdminView.vue'
 import AdminStudentView from '../views/AdminStudentView.vue'
 import AdminTeacherView from '../views/AdminTeacherView.vue'
 import AdminRefLettersView from '../views/AdminRefLettersView.vue'
-import SignupLoginView from '../views/SignupLoginView.vue'
-import SignupStudentView from '../views/SignupStudentView.vue'
-import SignupTeacherView from '../views/SignupTeacherView.vue'
-import ReferenceLetterRequestDetails from '../views/ReferenceLetterRequestDetails.vue'
-import VerifyEmailToken from '../views/VerifyEmailToken.vue'
+*/
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
-    props: true
+    component: HomeView
   },
   {
     path: '/about',
     name: 'about',
     component: AboutView
+  },
+  {
+    path: '/home',
+    component: HomeView
   },
   {
     path: '/login',
@@ -45,7 +58,13 @@ const routes = [
     component: SignupTeacherView
   },
   {
-    path: '/reference-letter-request-details/:id',
+    path: "/profile",
+    name: "profile",
+    // lazy-loaded
+    component: ProfileView,
+  },
+  {
+    path: '/reference-letter-request/:id',
     name: 'rl-request-details',
     component: ReferenceLetterRequestDetails
   },
@@ -53,7 +72,7 @@ const routes = [
     path: '/verify_token/:token',
     name: 'verify-token',
     component: VerifyEmailToken
-  },
+  } /*
   {
     path: '/admin',
     name: 'adminpanel',
@@ -76,6 +95,7 @@ const routes = [
   },
   // otherwise redirect to home
   //{ path: '*', redirect: '/' }
+  */
 ]
 
 const router = createRouter({
@@ -100,4 +120,4 @@ router.beforeEach((to, from, next) => {
   next();
 })*/
 
-export default router
+export default router;

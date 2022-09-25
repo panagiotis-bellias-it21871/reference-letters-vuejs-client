@@ -2,7 +2,9 @@
     <div class="add-reference-letter-request">
         <div class="row mb-3">
             <div class="col text-right">
-                <button class="btn btn-primary" v-on:click="formShow">Create New Reference Letter Request</button>
+                <button class="btn btn-primary" v-on:click="formInteractive">
+                    {{ message }}
+                </button>
             </div>
         </div>
         <div class="card bg-dark mb-3" v-if="formDiv">
@@ -11,10 +13,7 @@
                     <div class="form-group">
                         <label>Select teacher (from the list)</label>
                         <select v-model="teacher" name="teacher" id="teacher" class="form-control">
-                        <option value="1">Anargyros Tsadimas</option>
-                        <option value="2">Thomas Kamalakis</option>
-                        <option value="3">Georgios Kousiouris</option>
-                        <option value="4">Christos Diou</option>
+                        <option v-for="item in teachers" v-bind:key="item.id">{{item.name}}</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -37,10 +36,13 @@
 </template>
 
 <script>
+import DataService from '../services/data-service';
+
 export default {
     name: "AddReferenceLetterRequest",
     data(){
         return {
+            message: "Create New Reference Letter Request",
             formDiv: false,
             title: "",
             teacher: 0,
@@ -48,9 +50,20 @@ export default {
             carrierEmail: "",
         }
     },
+    computed: {
+        teachers() {
+            return DataService.getTeacherUsernames();
+        }
+    },
     methods: {
-        formShow(){
-            this.formDiv = true;
+        formInteractive(){
+            if (this.formDiv) {
+                this.formDiv = false;
+                this.message = "Create New Reference Letter Request";
+            } else {
+                this.formDiv = true;
+                this.message = "Cancel"
+            }
         },
         addRlRequest(){
             const newRlRequest = {
@@ -61,10 +74,12 @@ export default {
             // Send up to parent
             this.$emit("add-reference-letter-request", newRlRequest)
         }
+    },
+    mounted() {
+        
     }
 }
 </script>
 
 <style>
-
 </style>

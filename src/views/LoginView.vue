@@ -5,7 +5,7 @@
           <form @submit.prevent="login">
               <div class="form-group">
                 <label>Email</label>
-                <input v-model="email" type="text" name="email" id="email" class="form-control" placeholder="Enter your email">
+                <input v-model="email" type="text" name="email" id="email" class="form-control" placeholder="Enter your e-mail address">
               </div>
               <div class="form-group">
                 <label>Password</label>
@@ -26,36 +26,49 @@
 </template>
 
 <script>
-import { userService } from '../__services';
-import router from "../router"
-
 export default {
     name: "LoginView",
     data(){
         return {
             email: "",
             password: "",
-            backend: process.env.VUE_APP_BACKEND_URL,
-            auth: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX,
-            signin: process.env.VUE_APP_AUTH_LOGIN_ENDPOINT,
-            error: ''
         }
+    },
+    computed: {
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      }
+    },
+    created() {
+      if (this.loggedIn) {
+        this.$router.push("/");
+      }
     },
     methods : {
         login(){
-          let ok = userService.login(this.email, this.password)
-          if (ok) {
-            //setTimeout(function() {
-              router.push('/');
-            //}, 3000);
+          const user = {
+            email: this.email,
+            password: this.password
           }
-          else alert("Wrong credentials or internal error!")
+          this.$store.dispatch("auth/login", user).then(
+            (response) => {
+              console.log(response)
+              this.$store.dispatch("auth/username", user).then(
+                (response) => {
+                  console.log(response)
+                  this.$router.push("/");
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
         }
     },
-    created() {
-      // reset login status
-      userService.logout();
-    }
 }
 </script>
 

@@ -7,20 +7,22 @@
         </div>
         <div class="card bg-dark mb-3">
             <div class="card-body">
-                <h3>{{rl_request['carrier_name']}}</h3>
-                <p>From: {{student['name']}}</p>
-                <p>To: {{teacher['name']}}</p>
-                <p>Status : {{rl_request['status']}}</p>
+                <h3>{{rl_request.carrier_name}}</h3>
+                <p>From: {{student_name}}</p>
+                <p>To: {{teacher_name}}</p>
+                <p>Status: {{rl_request.status}}</p>
+            </div>
+            <div v-if="rl_request.status=='approved'" class="card-body">
                 <b>Text</b>
-                <p>{{rl_request['text']}}</p>
+                <p v-if="rl_request.text">{{rl_request.text}}</p>
+                <p v-else>No Text Available!</p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import axios from "axios"
-
+import DataService from "../services/data-service.js";
 export default {
     name: "ReferenceLetterRequestDetails",
     data() {
@@ -28,57 +30,56 @@ export default {
             id: this.$route.params.id,
             errors: [],
             rl_request: [],
-            student: [],
-            teacher: [],
-            backend: process.env.VUE_APP_BACKEND_URL,
-            base_endpoint: process.env.VUE_APP_BASE_ENDPOINT_PREFIX,
-            rl_letters_endpoint: process.env.VUE_APP_RL_LETTERS_ENDPOINT,
+            student_name: "",
+            teacher_name: "",
         }
     },
-    created(){
-        this.rl_request = {
-            "id": 1,
-            "carrier_name": "Quintessential SFT",
-            "student": {
-                "name": "P. Bellias"
+    mounted(){
+        DataService.getRlRequestById(this.id).then(
+            (res) => {
+                this.rl_request = res.data;
+                console.log(this.rl_request);
             },
-            "teacher": {
-                "name": "A. Tsadimas"
+            (error) => {
+                this.rl_request =
+                (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+            }
+        );
+        console.log(this.rl_request.student_id);
+        DataService.getStudentById(this.rl_request.student_id).then(
+            (res) => {
+                this.student_name = res.data.full_name;
+                console.log(this.student_name);
             },
-            "status": "pending",
-            "text": "blah blah"
-        }
-        this.student = {
-            "name": "P. Bellias"
-        }
-        this.teacher = {
-            "name": "A. Tsadimas"
-        }
-        axios
-            .get(`${this.backend}/${this.base_endpoint}/${this.rl_letters_endpoint}/${this.id}`)
-            .then(res => {
-                this.rl_request = res.data
-                console.log(res.data)
-            })
-            .catch(e => {
-                this.errors.push(e)
-            })
-        axios
-            .get(`${this.backend}/${this.base_endpoint}/students/${this.id}`)
-            .then(res => {
-                this.student = res.data
-            })
-            .catch(e => {
-                this.errors.push(e)
-            })
-        axios
-            .get(`${this.backend}/${this.base_endpoint}/teachers/${this.id}`)
-            .then(res => {
-                this.teacher = res.data
-            })
-            .catch(e => {
-                this.errors.push(e)
-            })
+            (error) => {
+                this.student_name =
+                (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+            }
+        )
+        console.log(this.student_name);
+        DataService.getTeacherById(this.rl_request.teacher_id).then(
+            (res) => {
+                this.teacher_name = res.data.full_name;
+                console.log(this.teacher_name);
+            },
+            (error) => {
+                this.teacher_name =
+                (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+            }
+        )
+        console.log(this.teacher_name);
     }
 }
 </script>

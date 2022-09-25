@@ -41,8 +41,7 @@
 </template>
 
 <script>
-import { userService } from '../__services';
-import router from '../router';
+import AuthService from '../services/auth-service.js';
 export default {
     name: "SignupTeacherView",
     data(){
@@ -53,19 +52,45 @@ export default {
         description: "",
         password: "",
         password2: "",
-        backend: process.env.VUE_APP_BACKEND_URL,
-        base_endpoint: process.env.VUE_APP_BASE_ENDPOINT_PREFIX,
-        auth_endpoint: process.env.VUE_APP_AUTH_ENDPOINT_PREFIX
+      }
+    },
+    computed: {
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      },
+    },
+    mounted() {
+      if (this.loggedIn) {
+        this.$router.push("/profile");
       }
     },
     methods: {
       signupteacher() {
-        if(userService.signupteacher(
-          this.username, this.fullname, this.email, this.description, this.password, this.password2 
-        )){
-          alert("Check your email account to follow the account verification link.")
-          router.push("/")
+        if(this.password != this.password2) {
+          alert("Passwords don't match");
+          return;
         }
+        const teacher = {
+          username: this.username,
+          email: this.email,
+          fullname: this.fullname,
+          description: this.description,
+          password: this.password
+        }
+        AuthService.registerTeacher(teacher).then(
+            (res) => {
+              if(res.status == 202){
+                console.log(res);
+                alert("Check your email account to follow the account verification link.")
+                this.$router.push("/")
+              }
+            },
+            (err) => {
+              console.log(err);
+              alert("Something went wrong! Try again...")
+              this.$router.push("/signup/teacher");
+            }
+          );
       }
     }
 }
