@@ -17,6 +17,11 @@
                 <p v-if="rl_request.text">{{rl_request.text}}</p>
                 <p v-else>No Text Available!</p>
             </div>
+            <div>
+            <button v-on:click="approve" class="btn btn-clock btn-stud">Approve</button>
+            </div><div>
+            <button v-on:click="decline" class="btn btn-clock btn-teac">Decline</button>
+            </div>
         </div>
     </div>
 </template>
@@ -34,7 +39,33 @@ export default {
             teacher_name: "",
         }
     },
+    methods: {
+        approve() {
+            this.$router.push(`/approve_request/${this.id}`);
+        },
+        decline() {
+            DataService.declineRlRequestById(this.id);
+            this.$router.push("/")
+        }
+    },
     mounted(){
+        if (this.id == 1) {
+            this.rl_request = {
+                carrier_name: "Harokopio University of Athens",
+                status: "pending",
+            }
+            this.student_name = "Panagiotis Bellias Student",
+            this.teacher_name = "Panagiotis Bellias Teacher"
+        }
+        if (this.id == 2) {
+            this.rl_request = {
+                carrier_name: "Quintessential SFT IKE",
+                status: "pending",
+            }
+            this.student_name = "Panagiotis Bellias Student",
+            this.teacher_name = "Panagiotis Bellias Teacher"
+        }
+        /*
         DataService.getRlRequestById(this.id).then(
             (res) => {
                 this.rl_request = res.data;
@@ -79,11 +110,21 @@ export default {
             error.toString();
             }
         )
-        console.log(this.teacher_name);
+        console.log(this.teacher_name);*/
     }
 }
 </script>
 
-<style>
-
+<style scoped>
+.btn-stud {
+  color: #fff;
+  background-color: blue;
+  width: 220px;
+  
+}
+.btn-teac {
+  color: #fff;
+  background-color: rgb(148, 7, 61);
+  width: 220px;
+}
 </style>

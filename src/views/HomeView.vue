@@ -77,6 +77,7 @@ export default {
             this.student = response.data.student;
             this.teacher = response.data.teacher;
             this.username = response.data.username;
+            console.log(this.student, this.teacher);
             console.log(this.username);
         },
         (error) => {
@@ -87,7 +88,7 @@ export default {
             error.message ||
             error.toString();
         });
-        if (this.student)
+        if (this.student) {
           UserService.getStudentInfo(this.username).then(
             (response) => {
               this.student_id = response.data.id;
@@ -97,7 +98,16 @@ export default {
                 this.student_id = 0;
                 console.log(error);
             });
-        else if (this.teacher)
+            DataService.getRlRequestsForStudent(this.student_id).then(
+              (response) => {
+                this.rl_requests = response.data;
+              },
+              (error) => {
+                this.errors = error;
+                console.log(error);
+              }
+            );
+        } else if (this.teacher) {
           UserService.getTeacherInfo(this.username).then(
             (response) => {
               this.teacher_id = response.data.id;
@@ -107,7 +117,35 @@ export default {
                 this.teacher_id = 0;
                 console.log(error);
             });
-      }
-    }    
+            DataService.getPendingRlRequestsForTeacher(this.teacher_id).then(
+              (response) => {
+                this.rl_requests = response.data;
+              },
+              (error) => {
+                this.errors = error;
+                console.log(error);
+              }
+            );
+          }
+      } /*
+      DataService.getRlRequestsForStudent(this.student_id+1).then(
+              (response) => {
+                this.rl_requests = response.data;
+              },
+              (error) => {
+                this.errors = error;
+                console.log(error);
+              }
+            );*/
+      DataService.getPendingRlRequestsForTeacher(this.teacher_id+1).then(
+        (response) => {
+          this.rl_requests = response.data;
+        },
+        (error) => {
+          this.errors = error;
+          console.log(error);
+        }
+      );
+    },
 };
 </script>

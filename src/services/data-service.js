@@ -22,7 +22,7 @@ class DataService {
     }
 
     getRlRequestById(id) {
-        return axios.get(API_URL + process.env.VUE_APP_RL_LETTERS_ENDPOINT + "/" + id, { headers: authHeader() })
+        return axios.get(`${API_URL}${process.env.VUE_APP_RL_LETTERS_ENDPOINT}/${id}`, { headers: authHeader() })
     }
 
     updateRlRequestById(id, carrier_name, carrier_email, status, text) {
@@ -36,7 +36,7 @@ class DataService {
     }
     
     getPendingRlRequestsForTeacher(teacher_id) {
-        return axios.get(API_URL + process.env.VUE_APP_RL_LETTERS_ENDPOINT + "/t/pending/" + teacher_id, { headers: authHeader() })
+        return axios.get(`${API_URL}${process.env.VUE_APP_RL_LETTERS_ENDPOINT}/t/pending/${teacher_id}`, { headers: authHeader() })
     }
 
     approveRlRequestById(id, text) {
@@ -50,11 +50,12 @@ class DataService {
     }
 
     getStudentById(id){
-        return axios.get(API_URL + "students/" + id, { headers: authHeader() })
+        console.log(id);
+        return axios.get(`${API_URL}students/${id}`, { headers: authHeader() })
     }
 
     getTeacherById(id){
-        return axios.get(API_URL + "teachers/" + id, { headers: authHeader() })
+        return axios.get(`${API_URL}teachers/${id}`, { headers: authHeader() })
     }
 
     getTeachers(){

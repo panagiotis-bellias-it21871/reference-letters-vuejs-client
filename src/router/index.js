@@ -7,6 +7,7 @@ import SignupTeacherView from '../views/SignupTeacherView.vue'
 import VerifyEmailToken from '../views/VerifyEmailToken.vue'
 import AboutView from '../views/AboutView.vue'
 import ReferenceLetterRequestDetails from '../views/ReferenceLetterRequestDetails.vue'
+import ApproveRlRequest from '../views/ApproveRlRequest.vue'
 //lazy-loaded
 const ProfileView = () => import("../views/ProfileView.vue")
 /*
@@ -67,6 +68,11 @@ const routes = [
     path: '/reference-letter-request/:id',
     name: 'rl-request-details',
     component: ReferenceLetterRequestDetails
+  },
+  {
+    path: '/approve_request/:id',
+    name: 'approve-rl-request',
+    component: ApproveRlRequest
   },
   {
     path: '/verify_token/:token',

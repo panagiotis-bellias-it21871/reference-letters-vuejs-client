@@ -7,6 +7,7 @@
             </h1>
             <h5><strong>Full Name:</strong> {{content.full_name}}</h5>
             <h5><strong>Email:</strong> {{content.email}}</h5>  
+            <h5><strong>Grades public URL:</strong> Check it <a href="https://drive.google.com/drive/">here</a></h5>
             <h5><strong>Authority:</strong> {{role}}</h5>
             <!--
             <h2>Sign up as a teacher</h2>
@@ -56,6 +57,7 @@ export default {
         return {
             content: "",
             role: "",
+            grades_url: "https://drive.google.com/drive/"
         };
     },
     computed: {

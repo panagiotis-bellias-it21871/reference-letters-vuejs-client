@@ -39,7 +39,7 @@ body {
   background: #222831;
 }
 p {
-  color: #efbb35;
+  color: #a89f8c;
 }
 .container {
   max-width: 900px;
