@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label>Select teacher (from the list)</label>
                         <select v-model="teacher" name="teacher" id="teacher" class="form-control">
-                        <option v-for="item in teachers" v-bind:key="item.id">{{item.name}}</option>
+                        <option v-for="item in teachers" v-bind:key="item.id" v-bind:value="item.id">{{item.full_name}}</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -46,14 +46,12 @@ export default {
             formDiv: false,
             title: "",
             teacher: 0,
+            teachers: [],
             carrierName: "",
             carrierEmail: "",
         }
     },
     computed: {
-        teachers() {
-            return DataService.getTeacherUsernames();
-        }
     },
     methods: {
         formInteractive(){
@@ -66,6 +64,7 @@ export default {
             }
         },
         addRlRequest(){
+            console.log(this.teacher);
             const newRlRequest = {
                 teacher_id: this.teacher,
                 carrier_name: this.carrierName,
@@ -76,7 +75,16 @@ export default {
         }
     },
     mounted() {
-        
+        DataService.getTeachers().then(
+            (response) => {
+                console.log(response.data);
+                this.teachers = response.data;  
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+        console.log(this.teachers);
     }
 }
 </script>

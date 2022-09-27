@@ -17,9 +17,8 @@
                 <p v-if="rl_request.text">{{rl_request.text}}</p>
                 <p v-else>No Text Available!</p>
             </div>
-            <div>
+            <div v-if="user.teacher">
             <button v-on:click="approve" class="btn btn-clock btn-stud">Approve</button>
-            </div><div>
             <button v-on:click="decline" class="btn btn-clock btn-teac">Decline</button>
             </div>
         </div>
@@ -28,6 +27,7 @@
 
 <script>
 import DataService from "../services/data-service.js";
+import UserService from "../services/user-service.js";
 export default {
     name: "ReferenceLetterRequestDetails",
     data() {
@@ -37,6 +37,7 @@ export default {
             rl_request: [],
             student_name: "",
             teacher_name: "",
+            user: "",
         }
     },
     methods: {
@@ -45,10 +46,11 @@ export default {
         },
         decline() {
             DataService.declineRlRequestById(this.id);
-            this.$router.push("/")
+            this.$router.go(-1);
         }
     },
-    mounted(){
+    created(){
+        /*
         if (this.id == 1) {
             this.rl_request = {
                 carrier_name: "Harokopio University of Athens",
@@ -64,12 +66,48 @@ export default {
             }
             this.student_name = "Panagiotis Bellias Student",
             this.teacher_name = "Panagiotis Bellias Teacher"
-        }
-        /*
+        }*/
+        UserService.getUserBoard().then(
+        (response) => {
+            this.user = response.data;
+            },
+              (error) => {
+                console.log(error);
+            });
+
         DataService.getRlRequestById(this.id).then(
             (res) => {
                 this.rl_request = res.data;
                 console.log(this.rl_request);
+                DataService.getStudentById(this.rl_request.student_id).then(
+                (res) => {
+                    this.student_name = res.data.full_name;
+                    console.log(this.student_name);
+                },
+                (error) => {
+                    this.student_name =
+                    (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+                }
+            )
+            console.log(this.student_name);
+            DataService.getTeacherById(this.rl_request.teacher_id).then(
+                (res) => {
+                    this.teacher_name = res.data.full_name;
+                    console.log(this.teacher_name);
+                },
+                (error) => {
+                    this.teacher_name =
+                    (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+                }
+            )
             },
             (error) => {
                 this.rl_request =
@@ -80,7 +118,8 @@ export default {
             error.toString();
             }
         );
-        console.log(this.rl_request.student_id);
+        /*
+        console.log(this.rl_request.student_id); 
         DataService.getStudentById(this.rl_request.student_id).then(
             (res) => {
                 this.student_name = res.data.full_name;
@@ -110,7 +149,7 @@ export default {
             error.toString();
             }
         )
-        console.log(this.teacher_name);*/
+        console.log(this.teacher_name); */
     }
 }
 </script>

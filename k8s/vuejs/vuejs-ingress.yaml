@@ -4,7 +4,7 @@ metadata:
   name: vuejs-ingress
 spec:
   rules:
-  - host: "devops2k8s.ddns.net"
+  - host: "k8s2bellias.ddns.net"
     http:
       paths:
       - path: /

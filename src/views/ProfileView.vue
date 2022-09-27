@@ -10,7 +10,6 @@
             <h5><strong>Grades public URL:</strong> Check it <a href="https://drive.google.com/drive/">here</a></h5>
             <h5><strong>Authority:</strong> {{role}}</h5>
             <!--
-            <h2>Sign up as a teacher</h2>
             <form @submit.prevent="signupteacher">
                 <div class="form-group">
                     <label>Username</label>

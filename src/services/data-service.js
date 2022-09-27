@@ -40,9 +40,7 @@ class DataService {
     }
 
     approveRlRequestById(id, text) {
-        return axios.put(API_URL + process.env.VUE_APP_RL_LETTERS_ENDPOINT + "/t/" + id + "/approve", {
-          text: text
-        }, { headers: authHeader() })
+        return axios.put(API_URL + process.env.VUE_APP_RL_LETTERS_ENDPOINT + "/t/" + id + "/approve?text="+ text,null, { headers: authHeader() })
     }
 
     declineRlRequestById(id) {

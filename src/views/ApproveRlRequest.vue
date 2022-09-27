@@ -6,12 +6,18 @@
             </div>
         </div>
         <div class="card bg-dark mb-3">
-            <p>Here we must expose info and input elements to enter the text</p>
-            </div>
-            <div>
-            <button v-on:click="confirm" class="btn btn-clock btn-stud">Confirm</button>
-            </div>
+            <form @submit.prevent="confirm">
+                <div class="form-group">
+                    <label>Approval Text</label>
+                    <textarea v-model="text" type="text" name="text" rows="9" cols="40"
+                    id="text" class="form-control" placeholder="Enter your approval text"/>
+                </div>
+                <div>
+                    <button class="btn btn-clock btn-teac">Confirm</button>
+                </div>
+            </form>
         </div>
+    </div>
 </template>
 
 <script>
@@ -20,13 +26,14 @@ export default {
     name: "ApproveRlRequest",
     data() {
         return {
+            text: "",
             id: this.$route.params.id,
         }
     },
     methods: {
         confirm(){
-            DataService.approveRlRequestById(this.id);
-            this.$router.push("/")
+            DataService.approveRlRequestById(this.id, this.text);
+            this.$router.go(-1);
         }
     },
     mounted(){
