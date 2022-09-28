@@ -33,7 +33,7 @@ export default {
     methods: {
         confirm(){
             DataService.approveRlRequestById(this.id, this.text);
-            this.$router.go(-1);
+            this.$router.push('/home');
         }
     },
     mounted(){
