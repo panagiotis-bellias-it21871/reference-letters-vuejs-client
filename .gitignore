@@ -21,4 +21,4 @@ minio-js/
 *.sln
 
 # Environmental variables
-.env
+#.env
