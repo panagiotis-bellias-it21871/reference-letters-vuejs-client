@@ -2,10 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: vuejs-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: "k8s2bellias.ddns.net"
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
@@ -14,3 +15,6 @@ spec:
             name: vuejs-clip
             port:
               number: 80
+  tls:
+    - hosts: 
+      - k8s2bellias.ddns.net
